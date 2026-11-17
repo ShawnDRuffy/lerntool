@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14161c" media="(prefers-color-scheme: dark)">
+  <meta name="robots" content="noindex">
+  <title>Lerntool</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="kopf">
+    <div class="kopf-innen">
+      <h1>Lerntool</h1>
+      <button id="abmelden" class="leise" hidden>Abmelden</button>
+    </div>
+  </header>
+
+  <main id="inhalt">
+    <form id="anmelden" class="karte anmelden" hidden>
+      <h2>Anmelden</h2>
+      <p class="klein">Mit dem Konto, das du in Supabase angelegt hast.</p>
+      <label>E-Mail <input type="email" name="email" autocomplete="username" required></label>
+      <label>Passwort <input type="password" name="passwort" autocomplete="current-password" required></label>
+      <button type="submit">Anmelden</button>
+      <p id="anmelden-fehler" class="fehler" role="alert"></p>
+    </form>
+
+    <section id="start" hidden>
+      <div id="pruefungen" class="pruefungen"></div>
+      <h2>Als Nächstes</h2>
+      <ol id="naechstes" class="termine"></ol>
+      <h2>Fächer</h2>
+      <div id="faecher" class="faecher"></div>
+    </section>
+
+    <section id="chat" hidden>
+      <button id="zurueck" class="leise">Alle Fächer</button>
+      <h2 id="chat-titel"></h2>
+      <div id="verlauf" class="verlauf" aria-live="polite"></div>
+      <form id="frage" class="eingabe">
+        <textarea name="text" rows="2" maxlength="8000" placeholder="Frag etwas zu diesem Fach" required></textarea>
+        <button type="submit">Senden</button>
+      </form>
+    </section>
+
+    <p id="hinweis" class="hinweis" hidden></p>
+  </main>
+</body>
+</html>
