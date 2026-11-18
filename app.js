@@ -19,26 +19,11 @@ function hinweis(text) {
   $("hinweis").hidden = !text;
 }
 
-function esc(t) {
-  return String(t ?? "").replace(/[&<>"']/g, (z) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[z]);
-}
-
-// Kleines Markdown: Absätze, Listen, **fett**, `code`, Überschriften
-function markdown(text) {
-  const zeilen = esc(text).split("\n");
-  let html = "", liste = false;
-  for (const z of zeilen) {
-    const punkt = z.match(/^\s*[-*•]\s+(.*)/);
-    if (punkt && !liste) { html += "<ul>"; liste = true; }
-    if (!punkt && liste) { html += "</ul>"; liste = false; }
-    const inhalt = (punkt ? punkt[1] : z)
-      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-      .replace(/`([^`]+)`/g, "<code>$1</code>");
-    if (punkt) html += `<li>${inhalt}</li>`;
-    else if (/^#{1,4}\s/.test(z)) html += `<p><strong>${inhalt.replace(/^#+\s*/, "")}</strong></p>`;
-    else if (z.trim()) html += `<p>${inhalt}</p>`;
-  }
-  return html + (liste ? "</ul>" : "");
+function knoten(tag, klasse, text) {
+  const el = document.createElement(tag);
+  if (klasse) el.className = klasse;
+  if (text !== undefined) el.textContent = String(text ?? "");
+  return el;
 }
 
 // --- Supabase -----------------------------------------------------------------
@@ -107,21 +92,26 @@ function fachName(id) {
 function zeichnen() {
   const plan = daten.lernplan || {};
   const pruefungen = (plan.pruefungen || []).slice(0, 4);
-  $("pruefungen").innerHTML = pruefungen.map((p) => {
+  $("pruefungen").replaceChildren(...pruefungen.map((p) => {
     const t = tageBis(p.start);
-    return `<div class="pruefung ${t <= 7 ? "bald" : ""}">
-      <span class="tage">${t <= 0 ? "heute" : t === 1 ? "morgen" : `in ${t} Tagen`}</span>
-      <span class="was">${esc(p.titel)}</span>
-      <span class="klein">${esc(wann(p.start, p.ganztag))}${p.typ === "testat" ? " · Testat" : ""}</span></div>`;
-  }).join("");
+    const el = knoten("div", "pruefung" + (t <= 7 ? " bald" : ""));
+    el.append(knoten("span", "tage", t <= 0 ? "heute" : t === 1 ? "morgen" : `in ${t} Tagen`),
+      knoten("span", "was", p.titel), knoten("span", "klein", wann(p.start, p.ganztag) + (p.typ === "testat" ? " · Testat" : "")));
+    return el;
+  }));
   const jetzt = Date.now();
   const naechste = (plan.vorlesungen || []).filter((v) => new Date(v.ende || v.start).getTime() > jetzt).slice(0, 5);
-  $("naechstes").innerHTML = naechste.map((v) => `<li><time>${esc(wann(v.start))}</time>
-      <span>${esc(v.titel)}</span><span class="klein">${esc(v.ort || "")}</span></li>`).join("")
-    || `<li class="leer">In den nächsten Tagen steht nichts im Stundenplan.</li>`;
-  $("faecher").innerHTML = daten.faecher.map((f) => `<button class="fach" data-fach="${esc(f.id)}">
-      <span>${esc(f.name)}</span><span class="prio prio-${esc(f.prioritaet)}">${esc(f.prioritaet)}</span></button>`).join("")
-    + `<button class="fach" data-fach=""><span>Allgemein</span><span class="prio">ohne Fach</span></button>`;
+  $("naechstes").replaceChildren(...(naechste.length ? naechste.map((v) => {
+    const el = knoten("li"); el.append(knoten("time", "", wann(v.start)), knoten("span", "", v.titel), knoten("span", "klein", v.ort || "")); return el;
+  }) : [knoten("li", "leer", "In den nächsten Tagen steht nichts im Stundenplan.")]));
+  const faecher = daten.faecher.map((f) => {
+    const el = knoten("button", "fach"); el.dataset.fach = String(f.id ?? "");
+    const prioritaet = ["hoch", "mittel", "niedrig"].includes(f.prioritaet) ? " prio-" + f.prioritaet : "";
+    el.append(knoten("span", "", f.name), knoten("span", "prio" + prioritaet, f.prioritaet)); return el;
+  });
+  const allgemein = knoten("button", "fach"); allgemein.dataset.fach = "";
+  allgemein.append(knoten("span", "", "Allgemein"), knoten("span", "prio", "ohne Fach"));
+  $("faecher").replaceChildren(...faecher, allgemein);
   zeige("start");
 }
 
@@ -135,11 +125,20 @@ async function chatOeffnen(fach) {
 async function verlauf() {
   const filter = fachOffen ? `fach=eq.${encodeURIComponent(fachOffen)}` : "fach=is.null";
   const liste = (await rest(`nachrichten?select=id,erstellt,text,status,antwort,wer&${filter}&order=erstellt.desc&limit=30`)).reverse();
-  $("verlauf").innerHTML = liste.map((n) => `<div class="frage">${esc(n.text)}</div>
-    <div class="antwort ${n.status}">${n.status === "fertig" || n.status === "fehler"
-      ? markdown(n.antwort) + `<span class="wer">${esc(n.wer || "")}</span>`
-      : `<span class="denkt">${n.status === "neu" ? "Wartet auf das Agentic OS …" : "Wird beantwortet …"}</span>`}</div>`).join("")
-    || `<p class="klein">Noch keine Fragen in diesem Fach.</p>`;
+  const fragmente = document.createDocumentFragment();
+  for (const n of liste) {
+    fragmente.append(knoten("div", "frage", n.text));
+    const status = ["neu", "in_arbeit", "fertig", "fehler"].includes(n.status) ? n.status : "";
+    const antwort = knoten("div", "antwort" + (status ? " " + status : ""));
+    if (n.status === "fertig" || n.status === "fehler") {
+      if (window.Inhalt) window.Inhalt.anzeigen(antwort, n.antwort);
+      else antwort.textContent = String(n.antwort ?? "");
+      antwort.append(knoten("span", "wer", n.wer || ""));
+    } else antwort.append(knoten("span", "denkt", n.status === "neu" ? "Wartet auf das Agentic OS …" : "Wird beantwortet …"));
+    fragmente.append(antwort);
+  }
+  if (!liste.length) fragmente.append(knoten("p", "klein", "Noch keine Fragen in diesem Fach."));
+  $("verlauf").replaceChildren(fragmente);
   $("verlauf").scrollTop = $("verlauf").scrollHeight;
   clearTimeout(warten);
   if (liste.some((n) => n.status === "neu" || n.status === "in_arbeit")) warten = setTimeout(verlauf, 4000);

@@ -93,3 +93,46 @@ input, textarea {
   background: var(--grund); padding: 10px 0 max(10px, env(safe-area-inset-bottom)); }
 .eingabe textarea { resize: vertical; min-height: 46px; }
 @media (prefers-reduced-motion: no-preference) { .verlauf { scroll-behavior: smooth; } }
+
+/* Gemeinsame Darstellung für Chat UND Einheit (t5). */
+.verlauf, .inhalt-text, .frage, .antwort { min-width: 0; overflow-wrap: anywhere; }
+.inhalt-text { max-width: 100%; }
+.inhalt-text p { margin: 0 0 0.6em; }
+.inhalt-text pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; background: var(--grund); padding: 10px; border-radius: 6px; font-size: 0.85em; }
+.inhalt-formel { display: inline-block; max-width: 100%; overflow-x: auto; vertical-align: middle; overflow-wrap: normal; }
+.inhalt-formel-block { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 0.25em 0; }
+.inhalt-formel-rahmen { min-width: 0; max-width: 100%; }
+.inhalt-formel-hinweis { display: block; text-align: right; color: var(--leise); font-size: 13px; margin: 0 0 0.5em; }
+.inhalt-formel-hinweis[hidden] { display: none; }
+.inhalt-formel-block .katex-display { margin: 0.4em 0; }
+.inhalt-formel-block .katex-display > .katex { white-space: nowrap; }
+.inhalt-formel-roh { white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, monospace; }
+.inhalt-grafik { max-width: 100%; width: 100%; margin: 0.8em 0; }
+.inhalt-grafik figure { margin: 0; }
+.inhalt-grafik figcaption { font-weight: 600; font-size: 0.95em; }
+.inhalt-grafik svg { display: block; width: 100%; height: auto; background: var(--grund); border-radius: 8px; }
+.inhalt-grafik svg text { fill: var(--text); font-family: system-ui, sans-serif; }
+.grafik-zahl, .grafik-marke-text { font-size: var(--grafik-schrift, 18px); }
+.grafik-marke { fill: var(--grund); stroke: var(--text); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.grafik-hilfslinie { stroke: var(--leise); stroke-width: 1px; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.grafik-texte { margin: 8px 0; padding-left: 28px; font-size: 15px; }
+.grafik-texte li { margin: 4px 0; }
+.grafik-position { color: var(--leise); }
+.grafik-raster { stroke: var(--linie); stroke-width: 1; }
+.grafik-achse { stroke: var(--leise); stroke-width: 1.5; }
+.grafik-kurve, .grafik-skizze { fill: none; stroke-width: 2.4; stroke: currentColor; }
+.grafik-skizze { color: var(--text); }
+.grafik-punkt { fill: currentColor; }
+.grafik-farbe-0 { color: #2747a8; }
+.grafik-farbe-1 { color: #a82929; }
+.grafik-farbe-2 { color: #137447; }
+.grafik-farbe-3 { color: #8041a5; }
+.grafik-farbe-4 { color: #946200; }
+.grafik-legende { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 0.85em; padding-left: 20px; }
+.grafik-beschriftung { font-size: 14px; color: var(--leise); }
+.grafik-fehler { color: var(--rot); }
+.antwort:has(.inhalt-grafik) { width: 100%; max-width: 100%; }
+@media (prefers-color-scheme: dark) {
+  .grafik-farbe-0 { color: #9db6ff; } .grafik-farbe-1 { color: #ff9a9a; }
+  .grafik-farbe-2 { color: #7bd5a3; } .grafik-farbe-3 { color: #d4a4f4; } .grafik-farbe-4 { color: #e9c465; }
+}

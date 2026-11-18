@@ -1,0 +1,3070 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "lerneinheit/2",
+  "type": "object",
+  "properties": {
+    "format": {
+      "const": "lerneinheit/2",
+      "description": "Formatkennung.",
+      "examples": [
+        "lerneinheit/2"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Eindeutige Einheit; Demo beginnt mit demo-.",
+      "examples": [
+        "demo-2026-11-17-abend"
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Paketversion.",
+      "examples": [
+        1
+      ]
+    },
+    "fuer_tag": {
+      "type": "string",
+      "format": "date",
+      "description": "Gültigkeitstag.",
+      "examples": [
+        "2026-11-17"
+      ]
+    },
+    "erzeugt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Erzeugungszeit.",
+      "examples": [
+        "2026-11-16T20:00:00+01:00"
+      ]
+    },
+    "zeitzone": {
+      "const": "Europe/Berlin",
+      "description": "Zeitzone.",
+      "examples": [
+        "Europe/Berlin"
+      ]
+    },
+    "demo": {
+      "type": "boolean",
+      "description": "Demo im echten Betrieb gesperrt.",
+      "examples": [
+        true
+      ]
+    },
+    "freigegeben": {
+      "type": "boolean",
+      "description": "Bei demo immer false.",
+      "examples": [
+        false
+      ]
+    },
+    "hinweis": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Herkunft und Einschränkungen.",
+      "examples": [
+        "Demo, kein Lernstand Simons."
+      ]
+    },
+    "kern_minuten": {
+      "type": "integer",
+      "minimum": 25,
+      "maximum": 30,
+      "description": "Standard-Pflichtkern ohne Pausen; Tageswünsche stehen im Tagesplan.",
+      "examples": [
+        25
+      ]
+    },
+    "abend_gesamt_minuten": {
+      "const": 90,
+      "description": "Abendzeit inklusive Pausen laut Simon.",
+      "examples": [
+        90
+      ]
+    },
+    "timer": {
+      "$ref": "#/$defs/timer",
+      "description": "Pauseneinstellungen."
+    },
+    "auswahl": {
+      "type": "object",
+      "properties": {
+        "modus": {
+          "const": "zeitbudget",
+          "description": "Zeitbasierte Auswahl.",
+          "examples": [
+            "zeitbudget"
+          ]
+        },
+        "standard_wiederholung": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Anteil Wiederholung/Aufholen.",
+          "examples": [
+            0.5
+          ]
+        },
+        "begruendung": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Grund für den Reglerwert.",
+          "examples": [
+            "Noch keine Einstufung, deshalb neutraler Startwert 50 %."
+          ]
+        },
+        "erste_aufgabe": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Leichter Einstieg, höchstens 60 s, ohne Voraussetzungen.",
+          "examples": [
+            "sch-01"
+          ]
+        },
+        "reihenfolge": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Auswahlreihenfolge.",
+          "examples": [
+            "erste Aufgabe, Wiederholung, neuer Stoff, Abschluss"
+          ]
+        },
+        "voraussetzungen_beachten": {
+          "const": true,
+          "description": "Voraussetzungen immer beachten.",
+          "examples": [
+            true
+          ]
+        },
+        "begonnene_aufgabe_bleibt": {
+          "const": true,
+          "description": "Offene Eingabe bleibt beim Reglerwechsel.",
+          "examples": [
+            true
+          ]
+        },
+        "ueberziehen_bis_sekunden": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120,
+          "description": "Überschreitung je Teilbudget; bei Nullbudget keine.",
+          "examples": [
+            60
+          ]
+        },
+        "bei_mangel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Kein stilles Auffüllen mit anderer Art.",
+          "examples": [
+            "Mix zeigen, Einheit wird kürzer."
+          ]
+        },
+        "nur_status": {
+          "const": [
+            "ok"
+          ],
+          "description": "Nur geprüfte Aufgaben.",
+          "examples": [
+            [
+              "ok"
+            ]
+          ]
+        }
+      },
+      "required": [
+        "modus",
+        "standard_wiederholung",
+        "begruendung",
+        "erste_aufgabe",
+        "reihenfolge",
+        "voraussetzungen_beachten",
+        "begonnene_aufgabe_bleibt",
+        "ueberziehen_bis_sekunden",
+        "bei_mangel",
+        "nur_status"
+      ],
+      "additionalProperties": false,
+      "description": "Regeln des späteren Players."
+    },
+    "warum_heute": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fach": {
+            "enum": [
+              "mathe1",
+              "physik1",
+              "digitech",
+              "statistik",
+              "cprog",
+              "eki"
+            ],
+            "description": "Betroffenes Fach.",
+            "examples": [
+              "physik1"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Begründung; Demo bleibt Demo.",
+            "examples": [
+              "Beispiel: Morgen 09:45 Vorlesung Physik."
+            ]
+          }
+        },
+        "required": [
+          "fach",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "description": "Gründe für Fachwahl."
+    },
+    "quellen": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/quelle"
+      },
+      "minItems": 1,
+      "description": "Quellenverzeichnis."
+    },
+    "modell": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/modell"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Optionales gemeinsames Modell."
+    },
+    "skizzen": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/skizze"
+      },
+      "description": "Skizzenschlüssel → statisches SVG."
+    },
+    "themen": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/thema"
+      },
+      "minItems": 1,
+      "description": "Themen dieser Einheit."
+    },
+    "aufgaben": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/aufgabe"
+      },
+      "minItems": 1,
+      "description": "Flacher Vorrat einschließlich freiwilliger Verlängerung."
+    },
+    "abschluss": {
+      "$ref": "#/$defs/abschluss",
+      "description": "In Runde 1 genau ein Objekt; Themenliste erst mit gesonderter Migration."
+    },
+    "vorrat": {
+      "type": "object",
+      "properties": {
+        "sekunden_wiederholung": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Summe wiederholung und aufholen.",
+          "examples": [
+            435
+          ]
+        },
+        "sekunden_neu": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Summe neu.",
+          "examples": [
+            1395
+          ]
+        },
+        "sekunden_abschluss": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Dauer des Abschlusses.",
+          "examples": [
+            120
+          ]
+        },
+        "summe_minuten": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Gesamter Vorrat einschließlich Abschluss, nicht Dauer des Kerns.",
+          "examples": [
+            32.5
+          ]
+        },
+        "summe_punkte": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Summe der Aufgabenpunkte; null falls alle unbepunktet.",
+          "examples": [
+            null
+          ]
+        },
+        "hinweis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optionaler Hinweis zur Vorratsgröße.",
+          "examples": [
+            "Dieses Beispiel hat zu wenig Wiederholung."
+          ]
+        }
+      },
+      "required": [
+        "sekunden_wiederholung",
+        "sekunden_neu",
+        "sekunden_abschluss",
+        "summe_minuten",
+        "summe_punkte"
+      ],
+      "additionalProperties": false,
+      "description": "Nachgerechnete Summen."
+    },
+    "wiederholung_regel": {
+      "type": "object",
+      "properties": {
+        "falsch_nach_tagen": {
+          "const": [
+            1,
+            3,
+            7
+          ],
+          "description": "Wiederholungsabstände nach Fehlern.",
+          "examples": [
+            [
+              1,
+              3,
+              7
+            ]
+          ]
+        },
+        "sicher_nach_tagen": {
+          "const": [
+            14,
+            30
+          ],
+          "description": "Abstände bei sicherem Wissen.",
+          "examples": [
+            [
+              14,
+              30
+            ]
+          ]
+        },
+        "zaehlt_nicht": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Ausnahmen.",
+          "examples": [
+            "gemeldete Aufgaben, durchgelesene Beispiele"
+          ]
+        }
+      },
+      "required": [
+        "falsch_nach_tagen",
+        "sicher_nach_tagen",
+        "zaehlt_nicht"
+      ],
+      "additionalProperties": false,
+      "description": "Feste Wiederholungsregeln."
+    },
+    "prompt_mitnehmen": {
+      "type": "object",
+      "properties": {
+        "stufe": {
+          "const": 3,
+          "description": "UI erst in Stufe 3.",
+          "examples": [
+            3
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Promptvorlage mit Platzhaltern.",
+          "examples": [
+            "Ich lerne {thema}. Mein Stand: {stand}."
+          ]
+        }
+      },
+      "required": [
+        "stufe",
+        "text"
+      ],
+      "additionalProperties": false,
+      "description": "Vorlage für spätere Stufe."
+    }
+  },
+  "required": [
+    "format",
+    "id",
+    "version",
+    "fuer_tag",
+    "erzeugt",
+    "zeitzone",
+    "demo",
+    "freigegeben",
+    "kern_minuten",
+    "abend_gesamt_minuten",
+    "timer",
+    "auswahl",
+    "warum_heute",
+    "quellen",
+    "skizzen",
+    "themen",
+    "aufgaben",
+    "abschluss",
+    "vorrat",
+    "wiederholung_regel",
+    "prompt_mitnehmen"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "abschluss": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Kennung der Abschlussfrage.",
+          "examples": [
+            "abschluss"
+          ]
+        },
+        "sekunden": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Zeit für die Reflexion.",
+          "examples": [
+            120
+          ]
+        },
+        "frage": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Abschlussfrage aus dem Demo.",
+          "examples": [
+            "Warum schwingt eine schwerere Masse an derselben Feder langsamer?"
+          ]
+        },
+        "kernpunkte": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "description": "Punkte zum Selbstvergleich.",
+          "examples": [
+            [
+              "Die Feder zieht bei gleicher Auslenkung gleich stark."
+            ]
+          ]
+        },
+        "bewertung": {
+          "const": "selbst",
+          "description": "Keine automatische Inhaltsbewertung.",
+          "examples": [
+            "selbst"
+          ]
+        },
+        "selbsteinschaetzung": {
+          "const": [
+            "sitzt",
+            "wackelt",
+            "noch unklar"
+          ],
+          "description": "Feste Selbstbewertungsoptionen.",
+          "examples": [
+            [
+              "sitzt",
+              "wackelt",
+              "noch unklar"
+            ]
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "sekunden",
+        "frage",
+        "kernpunkte",
+        "bewertung",
+        "selbsteinschaetzung"
+      ],
+      "additionalProperties": false
+    },
+    "aufgabe": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "wahrfalsch",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "wahrfalsch"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "richtig": {
+              "type": "boolean",
+              "description": "Richtiger Wahrheitswert.",
+              "examples": [
+                true
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "richtig"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "mc",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "mc"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "optionen": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 2,
+              "uniqueItems": true,
+              "description": "Auswahlmöglichkeiten.",
+              "examples": [
+                [
+                  "T wird größer",
+                  "T wird kleiner"
+                ]
+              ]
+            },
+            "richtig": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Nullbasierter Index.",
+              "examples": [
+                1
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "optionen",
+            "richtig"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "formelwahl",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "formelwahl"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "optionen": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 2,
+              "uniqueItems": true,
+              "description": "Auswahlmöglichkeiten.",
+              "examples": [
+                [
+                  "T wird größer",
+                  "T wird kleiner"
+                ]
+              ]
+            },
+            "richtig": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Nullbasierter Index.",
+              "examples": [
+                1
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "optionen",
+            "richtig"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "zahl",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "zahl"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "antwort": {
+              "$ref": "#/$defs/zahl",
+              "description": "Zahl und Toleranzen."
+            },
+            "fehlerbild": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Numerischer String → Hinweis; darf nie innerhalb richtiger Toleranz liegen.",
+              "examples": [
+                {
+                  "3": "Nach dem Koppeln bewegen sich beide Wagen."
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "antwort"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "luecken",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "luecken"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "schritte": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Schritttext; mit Lücke genau ein ___ Platzhalter.",
+                    "examples": [
+                      "T = 2π/ω₀ = ___ s"
+                    ]
+                  },
+                  "luecke": {
+                    "$ref": "#/$defs/zahl",
+                    "description": "Erwartete Zahl bei einem Platzhalter."
+                  }
+                },
+                "required": [
+                  "text"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 2,
+              "description": "Schritte; mindestens eine Lücke."
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "schritte"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "beispiel",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "beispiel"
+              ]
+            },
+            "schritte": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 2,
+              "description": "Lösungsweg; keine Hinweise und keine Lösungswertung.",
+              "examples": [
+                [
+                  "Gegeben: m = 0,5 kg, D = 50 N/m.",
+                  "ω₀ = √(D/m) = 10 s⁻¹."
+                ]
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "schritte"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "offen",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "offen"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "kernpunkte": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "maxItems": 4,
+              "description": "Punkte zum Selbstvergleich.",
+              "examples": [
+                [
+                  "Eine größere Masse wird von derselben Kraft weniger beschleunigt."
+                ]
+              ]
+            },
+            "selbsteinschaetzung": {
+              "const": [
+                "sitzt",
+                "wackelt",
+                "noch unklar"
+              ],
+              "description": "Selbstbewertung statt geprüfter Richtigkeit.",
+              "examples": [
+                [
+                  "sitzt",
+                  "wackelt",
+                  "noch unklar"
+                ]
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "kernpunkte",
+            "selbsteinschaetzung"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "code_ausgabe",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "code_ausgabe"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "description": "C-Code als Text; wird hier nicht ausgeführt.",
+              "examples": [
+                "<C-Code aus Unterlagen>"
+              ]
+            },
+            "erwartete_ausgabe": {
+              "type": "string",
+              "description": "Vergleich ohne Leerraum am Rand.",
+              "examples": [
+                "<Ausgabe aus geprüfter Aufgabe>"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "code",
+            "erwartete_ausgabe"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "code_fehler",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "code_fehler"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "description": "C-Code als Text.",
+              "examples": [
+                "<C-Code aus Unterlagen>"
+              ]
+            },
+            "richtig_zeilen": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "description": "1-basierte fehlerhafte Zeilen.",
+              "examples": [
+                [
+                  1
+                ]
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "code",
+            "richtig_zeilen"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Eindeutige Aufgabenkennung.",
+              "examples": [
+                "imp-03"
+              ]
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Inhaltsversion; Änderung verlangt neue Prüfung.",
+              "examples": [
+                2
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Verweis auf themen[].id.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "art": {
+              "enum": [
+                "neu",
+                "wiederholung",
+                "aufholen"
+              ],
+              "description": "Kategorie für das Zeitbudget.",
+              "examples": [
+                "wiederholung"
+              ]
+            },
+            "stufe": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Schwierigkeitsstufe.",
+              "examples": [
+                3
+              ]
+            },
+            "sekunden": {
+              "type": "integer",
+              "minimum": 15,
+              "maximum": 900,
+              "description": "Geschätzte Bearbeitungszeit.",
+              "examples": [
+                180
+              ]
+            },
+            "braucht": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Aufgaben, die vorher vorkommen müssen; keine Zyklen.",
+              "examples": [
+                []
+              ]
+            },
+            "frage": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Unveränderter Aufgabentext.",
+              "examples": [
+                "Wie schnell rollen sie danach gemeinsam?"
+              ]
+            },
+            "skizze": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionaler Schlüssel in skizzen.",
+              "examples": [
+                "wagen"
+              ]
+            },
+            "erklaerung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Rückmeldung nach der Antwort.",
+              "examples": [
+                "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s."
+              ]
+            },
+            "klausurniveau": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Nur bei Stufe 5 zulässig.",
+              "examples": [
+                "Kandidat, nicht an echten Prüfungsaufgaben bestätigt"
+              ]
+            },
+            "demo_aufgabe": {
+              "type": "boolean",
+              "description": "Pflicht: verhindert Übernahme einzelner Demo-Aufgaben.",
+              "examples": [
+                true
+              ]
+            },
+            "punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Maximalpunkte oder null bei unbepunkteten Aufgaben; kein erfundener Lernstand.",
+              "examples": [
+                null
+              ]
+            },
+            "pruefung": {
+              "$ref": "#/$defs/pruefung",
+              "description": "Freigabenachweis mit Versions- und Kontextbindung."
+            },
+            "typ": {
+              "const": "eclipse",
+              "description": "Aufgabentyp.",
+              "examples": [
+                "eclipse"
+              ]
+            },
+            "hinweise": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 3,
+              "maxItems": 3,
+              "description": "Genau Denkanstoß, Ansatz und Lösungsweg.",
+              "examples": [
+                [
+                  "Erst die Impulsänderung, dann die Kraft.",
+                  "Δp = m·Δv, danach F = Δp/Δt.",
+                  "Δp = 2,4 kg·m/s, F = 120 N"
+                ]
+              ]
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Optionaler C-Code.",
+              "examples": [
+                "<C-Code aus Unterlagen>"
+              ]
+            },
+            "testfaelle": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "eingabe": {
+                    "type": "string",
+                    "description": "Testeingabe.",
+                    "examples": [
+                      "<Eingabe>"
+                    ]
+                  },
+                  "ausgabe": {
+                    "type": "string",
+                    "description": "Erwartete Ausgabe.",
+                    "examples": [
+                      "<Ausgabe>"
+                    ]
+                  }
+                },
+                "required": [
+                  "eingabe",
+                  "ausgabe"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "description": "Geprüfte Testfälle."
+            },
+            "rueckweg": {
+              "const": "beides",
+              "description": "Status läuft/läuft nicht und optional Code.",
+              "examples": [
+                "beides"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "thema",
+            "art",
+            "stufe",
+            "sekunden",
+            "braucht",
+            "frage",
+            "erklaerung",
+            "demo_aufgabe",
+            "punkte",
+            "pruefung",
+            "typ",
+            "hinweise",
+            "testfaelle",
+            "rueckweg"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "formel": {
+      "type": "object",
+      "properties": {
+        "zeichen": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unicode-Formel aus der Quelle.",
+          "examples": [
+            "F = −D·x"
+          ]
+        },
+        "wann": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Geltungsbereich der Formel.",
+          "examples": [
+            "Rückstellkraft einer linearen Feder."
+          ]
+        }
+      },
+      "required": [
+        "zeichen",
+        "wann"
+      ],
+      "additionalProperties": false
+    },
+    "modell": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Gemeinsame Modellkennung.",
+          "examples": [
+            "federwagen"
+          ]
+        },
+        "art": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Modelltyp.",
+          "examples": [
+            "waagerechter idealer Federschwinger"
+          ]
+        },
+        "masse_kg": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Masse des bestehenden Demo-Modells.",
+          "examples": [
+            0.5
+          ]
+        },
+        "federkonstante_N_pro_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Federkonstante des Demo-Modells.",
+          "examples": [
+            50
+          ]
+        },
+        "amplitude_m": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Amplitude des Demo-Modells.",
+          "examples": [
+            0.04
+          ]
+        },
+        "start": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Startbedingung.",
+          "examples": [
+            "bei +x̂ ohne Anschub losgelassen"
+          ]
+        },
+        "positiv": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Vorzeichenrichtung.",
+          "examples": [
+            "rechts"
+          ]
+        },
+        "annahmen": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "description": "Explizite Modellannahmen.",
+          "examples": [
+            [
+              "reibungsfrei",
+              "ungedämpft"
+            ]
+          ]
+        },
+        "parameter": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              }
+            ]
+          },
+          "description": "Weitere benannte Parameter anderer Modelle; keine Formelauswertung.",
+          "examples": [
+            {}
+          ]
+        },
+        "abgeleitet": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Benannte abgeleitete Zahlen; keine beliebigen ausführbaren Formeln.",
+          "examples": [
+            {
+              "omega0_pro_s": 10,
+              "T_s": 0.6283,
+              "v_max_m_pro_s": 0.4
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "art",
+        "annahmen",
+        "abgeleitet"
+      ],
+      "additionalProperties": false
+    },
+    "pruefung": {
+      "type": "object",
+      "properties": {
+        "geschrieben_von": {
+          "enum": [
+            "claude",
+            "codex",
+            "gemini",
+            "unbekannt"
+          ],
+          "description": "Letzter inhaltlicher Autor; unbekannt sperrt die Freigabe.",
+          "examples": [
+            "claude"
+          ]
+        },
+        "nachgerechnet_von": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "claude",
+              "codex",
+              "gemini"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true,
+          "description": "Unabhängige Nachrechner; bei Zahlen/Lücken nicht leer.",
+          "examples": [
+            [
+              "codex"
+            ]
+          ]
+        },
+        "fachlich_geprueft_von": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "claude",
+              "codex",
+              "gemini"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true,
+          "description": "Unabhängige fachliche Prüfer; bei Freigabe nicht leer.",
+          "examples": [
+            [
+              "codex"
+            ]
+          ]
+        },
+        "status": {
+          "enum": [
+            "offen",
+            "nachgerechnet",
+            "ok",
+            "strittig",
+            "gemeldet"
+          ],
+          "description": "Entwurfsstatus möglich; Annahme einer Einheit verlangt ausschließlich ok.",
+          "examples": [
+            "ok"
+          ]
+        },
+        "fuer_version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Geprüfte Inhaltsversion; bei ok erforderlich.",
+          "examples": [
+            1
+          ]
+        },
+        "pruef_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 des kanonischen Objekts ohne pruefung; bei ok erforderlich.",
+          "examples": [
+            "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          ]
+        },
+        "kontext_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "description": "SHA-256 des gebundenen Umfelds; bei ok erforderlich.",
+          "examples": [
+            "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          ]
+        },
+        "notiz": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Herkunft der Prüfung oder Änderungsvermerk.",
+          "examples": [
+            "Freigabe gemäß Simons Auftrag und dokumentierter Gegenprüfung."
+          ]
+        }
+      },
+      "required": [
+        "geschrieben_von",
+        "nachgerechnet_von",
+        "fachlich_geprueft_von",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "quelle": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Lokale eindeutige Quellenkennung.",
+          "examples": [
+            "eigen"
+          ]
+        },
+        "art": {
+          "enum": [
+            "Eingang",
+            "Skript",
+            "Übung",
+            "Vorlesung",
+            "selbst formuliert"
+          ],
+          "description": "Herkunft.",
+          "examples": [
+            "selbst formuliert"
+          ]
+        },
+        "datei": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Relativer Pfad unter projekte/studium/ oder null.",
+          "examples": [
+            null
+          ]
+        },
+        "seiten": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Seitenangabe oder null.",
+          "examples": [
+            null
+          ]
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Optionale HTTPS-/HTTP-Quelle.",
+          "examples": [
+            null
+          ]
+        },
+        "notiz": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Einschränkung oder Quellenhinweis.",
+          "examples": [
+            "Allgemeiner Fachbeleg, ersetzt Simons Unterlagen nicht."
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "art",
+        "datei",
+        "seiten"
+      ],
+      "additionalProperties": false
+    },
+    "skizze": {
+      "type": "object",
+      "properties": {
+        "aus_modell": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Verweis auf modell.id.",
+          "examples": [
+            "federwagen"
+          ]
+        },
+        "massstab": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Lesbare Maßstabsangabe.",
+          "examples": [
+            "48 px = 4 cm"
+          ]
+        },
+        "beschreibung": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Barrierefreie Beschreibung.",
+          "examples": [
+            "Wand, Feder, Wagen m bei +x̂."
+          ]
+        },
+        "svg": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Statisches SVG aus Linien, Flächen, Text; kein ausführbarer Inhalt.",
+          "examples": [
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><line x1='0' y1='0' x2='10' y2='10' stroke='currentColor'/></svg>"
+          ]
+        }
+      },
+      "required": [
+        "aus_modell",
+        "massstab",
+        "beschreibung",
+        "svg"
+      ],
+      "additionalProperties": false
+    },
+    "thema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Themenkennung.",
+          "examples": [
+            "physik1-federschwinger"
+          ]
+        },
+        "fach": {
+          "enum": [
+            "mathe1",
+            "physik1",
+            "digitech",
+            "statistik",
+            "cprog",
+            "eki"
+          ],
+          "description": "Vorhandenes Fachkürzel.",
+          "examples": [
+            "physik1"
+          ]
+        },
+        "titel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Titel aus Lernmaterial oder Demo.",
+          "examples": [
+            "Harmonische Schwingung am Federschwinger"
+          ]
+        },
+        "art": {
+          "enum": [
+            "neu",
+            "wiederholung",
+            "aufholen"
+          ],
+          "description": "Verwendung in dieser Einheit.",
+          "examples": [
+            "neu"
+          ]
+        },
+        "quelle": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Verweis auf quellen[].id.",
+          "examples": [
+            "eigen"
+          ]
+        },
+        "einstieg": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Verständliche Einführung.",
+              "examples": [
+                "Ein Wagen hängt an einer Feder."
+              ]
+            },
+            "alltag": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Alltagsbeispiel aus dem Demo.",
+              "examples": [
+                "Die Federung im Auto."
+              ]
+            }
+          },
+          "required": [
+            "text",
+            "alltag"
+          ],
+          "additionalProperties": false,
+          "description": "Bei neu Pflicht."
+        },
+        "formeln": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/formel"
+          },
+          "minItems": 0,
+          "description": "Formeln mit Geltungsbereich."
+        },
+        "verknuepft": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "description": "Themenverweise oder beschreibende Verknüpfungen.",
+          "examples": [
+            [
+              "physik1-impuls"
+            ]
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "fach",
+        "titel",
+        "art",
+        "quelle"
+      ],
+      "additionalProperties": false
+    },
+    "timer": {
+      "type": "object",
+      "properties": {
+        "standard": {
+          "enum": [
+            "25/5",
+            "45/10"
+          ],
+          "description": "Arbeits-/Kurzpausenrhythmus.",
+          "examples": [
+            "25/5"
+          ]
+        },
+        "test": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optionaler Wechseltest, keine Timer-Ausführung.",
+          "examples": [
+            "45/10 tageweise im Wechsel, siehe aufholplan.md"
+          ]
+        },
+        "lange_pause_minuten": {
+          "const": 20,
+          "description": "Lange Pause laut Simon.",
+          "examples": [
+            20
+          ]
+        },
+        "lange_pause_nach_bloecken": {
+          "const": 3,
+          "description": "Lange Pause vor dem nächsten Block nach jeweils drei Arbeitsblöcken.",
+          "examples": [
+            3
+          ]
+        }
+      },
+      "required": [
+        "standard",
+        "lange_pause_minuten",
+        "lange_pause_nach_bloecken"
+      ],
+      "additionalProperties": false
+    },
+    "zahl": {
+      "type": "object",
+      "properties": {
+        "wert": {
+          "type": "number",
+          "description": "Erwartete endliche Zahl.",
+          "examples": [
+            2
+          ]
+        },
+        "einheit": {
+          "type": "string",
+          "description": "Einheit; leer bei dimensionslos.",
+          "examples": [
+            "m/s"
+          ]
+        },
+        "tol_abs": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Absolute Toleranz in derselben Einheit.",
+          "examples": [
+            0.05
+          ]
+        },
+        "tol_rel": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Relative Toleranz als Anteil, nicht Prozentzahl.",
+          "examples": [
+            0.02
+          ]
+        }
+      },
+      "required": [
+        "wert",
+        "einheit",
+        "tol_abs",
+        "tol_rel"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

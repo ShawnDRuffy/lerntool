@@ -1,0 +1,1251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ereignisse/1",
+  "type": "object",
+  "properties": {
+    "format": {
+      "const": "ereignisse/1",
+      "description": "Formatkennung.",
+      "examples": [
+        "ereignisse/1"
+      ]
+    },
+    "sitzung": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID v4; zugleich Dateiname ohne .json.",
+      "examples": [
+        "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111"
+      ]
+    },
+    "geraet": {
+      "enum": [
+        "iphone",
+        "ipad",
+        "laptop",
+        "chat-ki"
+      ],
+      "description": "Schreiber dieser Sitzung.",
+      "examples": [
+        "iphone"
+      ]
+    },
+    "einheit": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Einheit oder null bei Dashboard-Aktion.",
+      "examples": [
+        "demo-2026-11-17-abend"
+      ]
+    },
+    "einheit_version": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Passende Fassung oder zusammen mit einheit null.",
+      "examples": [
+        1
+      ]
+    },
+    "timer": {
+      "anyOf": [
+        {
+          "enum": [
+            "25/5",
+            "45/10"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Timer dieser Sitzung.",
+      "examples": [
+        "25/5"
+      ]
+    },
+    "regler_wiederholung": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Regler dieser Sitzung.",
+      "examples": [
+        0.5
+      ]
+    },
+    "demo": {
+      "type": "boolean",
+      "description": "Demo-Ereignisse dürfen keinen echten Lernstand ändern.",
+      "examples": [
+        true
+      ]
+    },
+    "ereignisse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ereignis"
+      },
+      "minItems": 1,
+      "description": "Chronologische Ereignisliste; nur dieser Schreiber hängt an."
+    },
+    "geraet_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Stabile zufällige Geräte-ID, optional für alte Ereignisdateien."
+    }
+  },
+  "required": [
+    "format",
+    "sitzung",
+    "geraet",
+    "einheit",
+    "einheit_version",
+    "demo",
+    "ereignisse"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ereignis": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "antwort",
+              "description": "Ereignisart.",
+              "examples": [
+                "antwort"
+              ]
+            },
+            "aufgabe": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Aufgabenkennung.",
+              "examples": [
+                "sch-07"
+              ]
+            },
+            "aufgabe_version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Genau die bearbeitete Fassung.",
+              "examples": [
+                1
+              ]
+            },
+            "eingabe": {
+              "type": "string",
+              "description": "Rohe Eingabe oder Index als String.",
+              "examples": [
+                "20"
+              ]
+            },
+            "bewertung": {
+              "enum": [
+                "richtig",
+                "falsch"
+              ],
+              "description": "Ergebnis der Auswertung.",
+              "examples": [
+                "falsch"
+              ]
+            },
+            "methode": {
+              "enum": [
+                "exakt",
+                "zahl_toleranz",
+                "luecken",
+                "eclipse_selbst"
+              ],
+              "description": "Auswertungsverfahren; Eclipse bleibt Selbstauskunft.",
+              "examples": [
+                "zahl_toleranz"
+              ]
+            },
+            "fehlerbild": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Erkannter Schlüssel oder null.",
+              "examples": [
+                "20"
+              ]
+            },
+            "hinweise": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Geöffnete Hilfen; 3 zählt für Wiederholung wie falsch.",
+              "examples": [
+                2
+              ]
+            },
+            "aktive_sekunden": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Zeit mit sichtbarer Seite.",
+              "examples": [
+                184
+              ]
+            },
+            "code": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optionaler C-Code als Text.",
+              "examples": [
+                null
+              ]
+            },
+            "laufstatus": {
+              "enum": [
+                "laeuft",
+                "laeuft_nicht"
+              ],
+              "description": "Optionale Selbstauskunft zum C-Code, keine fachliche Freigabe."
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "aufgabe",
+            "aufgabe_version",
+            "eingabe",
+            "bewertung",
+            "hinweise",
+            "aktive_sekunden"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "gelesen",
+              "description": "Ereignisart.",
+              "examples": [
+                "gelesen"
+              ]
+            },
+            "aufgabe": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Aufgabenkennung.",
+              "examples": [
+                "sch-07"
+              ]
+            },
+            "aufgabe_version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Genau die bearbeitete Fassung.",
+              "examples": [
+                1
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "aufgabe",
+            "aufgabe_version"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "selbsteinschaetzung",
+              "description": "Ereignisart.",
+              "examples": [
+                "selbsteinschaetzung"
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Themenkennung.",
+              "examples": [
+                "physik1-federschwinger"
+              ]
+            },
+            "wert": {
+              "enum": [
+                "sitzt",
+                "wackelt",
+                "noch unklar"
+              ],
+              "description": "Selbsteinschätzung.",
+              "examples": [
+                "wackelt"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "thema",
+            "wert"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "erklaerung",
+              "description": "Ereignisart.",
+              "examples": [
+                "erklaerung"
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Optionales Thema.",
+              "examples": [
+                "physik1-federschwinger"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Wörtliche eigene Erklärung.",
+              "examples": [
+                "Weil die Feder die schwere Masse weniger beschleunigt."
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "fehler_gemeldet",
+              "description": "Ereignisart.",
+              "examples": [
+                "fehler_gemeldet"
+              ]
+            },
+            "aufgabe": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Aufgabenkennung.",
+              "examples": [
+                "sch-07"
+              ]
+            },
+            "aufgabe_version": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Genau die bearbeitete Fassung.",
+              "examples": [
+                1
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Optionaler Fehlerkommentar.",
+              "examples": [
+                "Lücke 2 nimmt 1,57 nicht an"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "aufgabe",
+            "aufgabe_version"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "abbruch",
+              "description": "Ereignisart.",
+              "examples": [
+                "abbruch"
+              ]
+            },
+            "nach_aufgabe": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^[a-z0-9][a-z0-9-]*$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Letzte Aufgabe oder null bei Abbruch vor dem Start.",
+              "examples": [
+                "sch-08"
+              ]
+            },
+            "grund": {
+              "enum": [
+                "zeit_um",
+                "nutzer"
+              ],
+              "description": "Optionaler Grund.",
+              "examples": [
+                "nutzer"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "nach_aufgabe"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "tageswunsch",
+              "description": "Ereignisart.",
+              "examples": [
+                "tageswunsch"
+              ]
+            },
+            "fuer_tag": {
+              "type": "string",
+              "format": "date",
+              "description": "Nur dieser Tag.",
+              "examples": [
+                "2026-11-17"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Wörtliche Eingabe.",
+              "examples": [
+                "heute nur Mathe"
+              ]
+            },
+            "sofort_erkannt": {
+              "$ref": "#/$defs/ueberschreibt",
+              "description": "Strukturierte, sofort erkannte Änderungen; alle Schlüssel vorhanden, unbekannt null."
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "fuer_tag",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "wochenendwahl",
+              "description": "Ereignisart.",
+              "examples": [
+                "wochenendwahl"
+              ]
+            },
+            "wochenende_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^wochenende-\\d{4}-\\d{2}-\\d{2}$",
+              "description": "Referenz auf wochenendplan.id.",
+              "examples": [
+                "wochenende-2026-11-21"
+              ]
+            },
+            "stunden_sa": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 8,
+              "description": "Gesamte Zeit Samstag inkl. Pausen.",
+              "examples": [
+                0
+              ]
+            },
+            "stunden_so": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 8,
+              "description": "Gesamte Zeit Sonntag inkl. Pausen.",
+              "examples": [
+                0
+              ]
+            },
+            "faecher": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "mathe1",
+                  "physik1",
+                  "digitech",
+                  "statistik",
+                  "cprog",
+                  "eki"
+                ]
+              },
+              "minItems": 0,
+              "uniqueItems": true,
+              "description": "Ausgewählte Fächer.",
+              "examples": [
+                [
+                  "physik1"
+                ]
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "wochenende_id",
+            "stunden_sa",
+            "stunden_so",
+            "faecher"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "themenwahl",
+              "description": "Ereignisart.",
+              "examples": [
+                "themenwahl"
+              ]
+            },
+            "fuer_tag": {
+              "type": "string",
+              "format": "date",
+              "description": "Gültigkeitstag.",
+              "examples": [
+                "2026-11-17"
+              ]
+            },
+            "fach": {
+              "enum": [
+                "mathe1",
+                "physik1",
+                "digitech",
+                "statistik",
+                "cprog",
+                "eki"
+              ],
+              "description": "Fach.",
+              "examples": [
+                "physik1"
+              ]
+            },
+            "wert": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Thema oder kein neuer Stoff / weiß nicht.",
+              "examples": [
+                "weiß nicht"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "fuer_tag",
+            "fach",
+            "wert"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "upload",
+              "description": "Ereignisart.",
+              "examples": [
+                "upload"
+              ]
+            },
+            "fach": {
+              "enum": [
+                "mathe1",
+                "physik1",
+                "digitech",
+                "statistik",
+                "cprog",
+                "eki"
+              ],
+              "description": "Fach.",
+              "examples": [
+                "physik1"
+              ]
+            },
+            "beschreibung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Beschreibung des Uploads.",
+              "examples": [
+                "<Dateiname und Größe>"
+              ]
+            },
+            "text_inhalt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Notiztext oder null.",
+              "examples": [
+                null
+              ]
+            },
+            "ablage_pfad": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Relativer privater Speicherpfad, kein Zugangstoken.",
+              "examples": [
+                null
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "fach",
+            "beschreibung"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "todo",
+              "description": "Ereignisart.",
+              "examples": [
+                "todo"
+              ]
+            },
+            "aktion": {
+              "enum": [
+                "neu",
+                "erledigt",
+                "offen",
+                "geloescht"
+              ],
+              "description": "Änderungsart.",
+              "examples": [
+                "neu"
+              ]
+            },
+            "todo_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Eindeutige To-do-ID.",
+              "examples": [
+                "einheit"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Bei neu Pflicht.",
+              "examples": [
+                "Abendeinheit"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "aktion",
+            "todo_id"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "einstellung",
+              "description": "Ereignisart.",
+              "examples": [
+                "einstellung"
+              ]
+            },
+            "schluessel": {
+              "enum": [
+                "gewicht",
+                "timer"
+              ],
+              "description": "Einstellung.",
+              "examples": [
+                "timer"
+              ]
+            },
+            "fach": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "mathe1",
+                    "physik1",
+                    "digitech",
+                    "statistik",
+                    "cprog",
+                    "eki"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Bei Gewicht erforderlich.",
+              "examples": [
+                "physik1"
+              ]
+            },
+            "wert": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5
+                },
+                {
+                  "enum": [
+                    "25/5",
+                    "45/10",
+                    "Wechsel"
+                  ]
+                }
+              ],
+              "description": "Gewicht 1–5 oder Timermodus.",
+              "examples": [
+                "25/5"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "schluessel",
+            "wert"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Weltweit eindeutige ID: volle Sitzungs-UUID plus -Zähler oder eigene UUID.",
+              "examples": [
+                "5f0c9a12-3b44-4d8e-9a10-7c2b1e00a111-1"
+              ]
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Zeit des Ereignisses, in Datei chronologisch.",
+              "examples": [
+                "2026-11-17T20:12:40+01:00"
+              ]
+            },
+            "art": {
+              "const": "chat_erkenntnis",
+              "description": "Ereignisart.",
+              "examples": [
+                "chat_erkenntnis"
+              ]
+            },
+            "fach": {
+              "enum": [
+                "mathe1",
+                "physik1",
+                "digitech",
+                "statistik",
+                "cprog",
+                "eki"
+              ],
+              "description": "Fach.",
+              "examples": [
+                "physik1"
+              ]
+            },
+            "thema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Themenkennung oder Titel.",
+              "examples": [
+                "physik1-impuls"
+              ]
+            },
+            "beobachtung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Beobachtung aus dem Chat, noch kein bestätigter Lernstand.",
+              "examples": [
+                "<Beobachtung aus tatsächlichem Chat>"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "fach",
+            "thema",
+            "beobachtung"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "zeit",
+            "art",
+            "befragung_version",
+            "antworten"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "zeit": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "art": {
+              "const": "befragung"
+            },
+            "befragung_version": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "antworten": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "frage",
+                  "wert"
+                ],
+                "properties": {
+                  "frage": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "wert": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 8000
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "array",
+                        "maxItems": 100,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ueberschreibt": {
+      "type": "object",
+      "properties": {
+        "regler_wiederholung": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Heutiger Wiederholungsanteil oder keine Überschreibung.",
+          "examples": [
+            0.5
+          ]
+        },
+        "kern_minuten": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 60
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Nur expliziter Tageswunsch darf den üblichen Kern ändern.",
+          "examples": [
+            null
+          ]
+        },
+        "abend_gesamt_minuten": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 1440
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Heutiges Gesamtbudget inklusive Pausen oder null.",
+          "examples": [
+            null
+          ]
+        },
+        "nur_faecher": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "mathe1",
+                  "physik1",
+                  "digitech",
+                  "statistik",
+                  "cprog",
+                  "eki"
+                ]
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Beschränkung auf Fächer oder null.",
+          "examples": [
+            null
+          ]
+        },
+        "ausgeschlossene_faecher": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "mathe1",
+                  "physik1",
+                  "digitech",
+                  "statistik",
+                  "cprog",
+                  "eki"
+                ]
+              },
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Ausgeschlossene Fächer oder null.",
+          "examples": [
+            null
+          ]
+        }
+      },
+      "required": [
+        "regler_wiederholung",
+        "kern_minuten",
+        "abend_gesamt_minuten",
+        "nur_faecher",
+        "ausgeschlossene_faecher"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

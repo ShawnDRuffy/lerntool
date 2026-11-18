@@ -1,0 +1,11 @@
+{
+  "format": "befragung/1",
+  "version": 1,
+  "titel": "Technischer Platzhalter – noch nicht Simons Befragung",
+  "minuten": 3,
+  "fragen": [
+    {"id":"darstellung","gruppe":"Bedienung","text":"Ist dieser Text gut lesbar?","art":"wahl","optionen":["Ja","Nein"],"min":null,"max":null,"hilfe":"Dies ist nur eine Testfrage.","pflicht":true},
+    {"id":"testzahl","gruppe":"Eingabe","text":"Wähle für diesen Test eine Zahl von 1 bis 5.","art":"skala","optionen":[],"min":1,"max":5,"hilfe":"Kein Lernstand wird daraus abgeleitet.","pflicht":true},
+    {"id":"kommentar","gruppe":"Rückmeldung","text":"Möchtest du etwas zur Bedienung notieren?","art":"text","optionen":[],"min":null,"max":null,"hilfe":"Optionaler Testtext, bleibt nur lokal.","pflicht":false}
+  ]
+}
