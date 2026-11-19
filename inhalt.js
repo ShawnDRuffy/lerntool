@@ -172,7 +172,23 @@
       d.fonts?.ready.then(() => { if (beobachter.get(element) === observer) anpassen(); });
     }
   }
-  const api = Object.freeze({ anzeigen, zerteilen, formelErlaubt, KATEX_OPTIONEN });
+  // Titel/Legenden: ausschließlich Inline-Inhalt, niemals Grafik- oder HTML-Blöcke.
+  function inlineAnzeigen(element, eingabe) {
+    const d = element.ownerDocument; element.replaceChildren(); let anzahl = 0;
+    function teil(ziel, t) {
+      if (t.art === 'betonung') {
+        const el = d.createElement(t.tag); ziel.append(el); t.teile.forEach(k => teil(el, k));
+      } else if (t.art === 'formel' && !t.display) {
+        const el = d.createElement('span'); el.className = 'inhalt-formel'; ziel.append(el);
+        if (++anzahl <= MAX_FORMELN && formelErlaubt(t.text) && typeof root.katex?.render === 'function') {
+          try { root.katex.render(t.text, el, { ...KATEX_OPTIONEN, displayMode: false, macros: Object.create(null) }); }
+          catch (_) { el.textContent = t.raw; }
+        } else el.textContent = t.raw;
+      } else ziel.append(d.createTextNode(t.raw ?? t.text ?? ''));
+    }
+    zerteilen(eingabe).forEach(t => teil(element, t));
+  }
+  const api = Object.freeze({ anzeigen, inlineAnzeigen, zerteilen, formelErlaubt, KATEX_OPTIONEN });
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.Inhalt = api;
 })(typeof window === 'undefined' ? globalThis : window);

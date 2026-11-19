@@ -1,7 +1,7 @@
 {
-  "format": "lerneinheit/2",
+  "format": "lerneinheit/3",
   "id": "demo-2026-11-17-abend",
-  "version": 2,
+  "version": 3,
   "fuer_tag": "2026-11-17",
   "erzeugt": "2026-11-16T20:00:00+01:00",
   "zeitzone": "Europe/Berlin",
@@ -58,7 +58,7 @@
     "masse_kg": 0.5,
     "federkonstante_N_pro_m": 50,
     "amplitude_m": 0.04,
-    "start": "bei +x̂ ohne Anschub losgelassen",
+    "start": "bei +$\\hat x$ ohne Anschub losgelassen",
     "positiv": "rechts",
     "annahmen": [
       "reibungsfrei",
@@ -75,9 +75,377 @@
   "skizzen": {
     "wagen": {
       "aus_modell": "federwagen",
-      "massstab": "48 px = 4 cm",
-      "beschreibung": "Wand, Feder, Wagen m bei +x̂. Gestrichelt die Ruhelage x = 0. Marken bei −x̂, 0, +x̂. Maßpfeil x̂ = 4 cm. Rechts ist positiv.",
-      "svg": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 150' font-family='-apple-system,system-ui,sans-serif' font-size='12' fill='currentColor' role='img' aria-label='Wagen an waagerechter Feder, um plus x-Dach gleich 4 cm ausgelenkt'><rect x='20' y='30' width='8' height='80' opacity='.35'/><line x1='20' y1='110' x2='310' y2='110' stroke='currentColor' stroke-width='2'/><polyline points='28,95 40,95 46,87 58,103 70,87 82,103 94,87 106,103 118,87 130,103 142,87 154,103 166,87 178,103 186,95 198,95' fill='none' stroke='currentColor' stroke-width='2'/><rect x='198' y='80' width='40' height='30' rx='5' fill='none' stroke='currentColor' stroke-width='2'/><text x='218' y='99' text-anchor='middle'>m</text><line x1='170' y1='26' x2='170' y2='118' stroke='currentColor' stroke-dasharray='4 4' opacity='.6'/><text x='170' y='20' text-anchor='middle'>Ruhelage</text><line x1='122' y1='110' x2='122' y2='118' stroke='currentColor' stroke-width='1.5'/><line x1='218' y1='110' x2='218' y2='118' stroke='currentColor' stroke-width='1.5'/><text x='122' y='134' text-anchor='middle'>−x̂</text><text x='170' y='134' text-anchor='middle'>x = 0</text><text x='218' y='134' text-anchor='middle'>+x̂</text><line x1='172' y1='60' x2='216' y2='60' stroke='currentColor' stroke-width='1.5'/><polygon points='170,60 178,56 178,64'/><polygon points='218,60 210,56 210,64'/><text x='194' y='52' text-anchor='middle'>x̂ = 4 cm</text><text x='300' y='145' text-anchor='end' font-size='10' opacity='.6'>rechts = positiv</text></svg>"
+      "massstab": "x-Achse in cm: Abstand von 0 bis +x̂ entspricht 4 cm; Höhe schematisch.",
+      "beschreibung": "Wand, Feder, Wagen m bei +$\\hat x$. Gestrichelt die Ruhelage $x = 0$. Marken bei −$\\hat x$, 0, +$\\hat x$. Maßpfeil $\\hat x = 4\\,\\mathrm{cm}$. Rechts ist positiv.",
+      "grafik": {
+        "format": "grafik/1",
+        "titel": "Wagen an waagerechter Feder, bei +x̂ = 4 cm",
+        "x": {
+          "min": -14,
+          "max": 12,
+          "name": "x",
+          "einheit": "cm"
+        },
+        "y": {
+          "min": -3,
+          "max": 9,
+          "name": "",
+          "einheit": ""
+        },
+        "kurven": [
+          {
+            "art": "punkte",
+            "punkte": [
+              [
+                -11.8333,
+                1.25
+              ],
+              [
+                -10.8333,
+                1.25
+              ],
+              [
+                -10.3333,
+                1.9167
+              ],
+              [
+                -9.3333,
+                0.5833
+              ],
+              [
+                -8.3333,
+                1.9167
+              ],
+              [
+                -7.3333,
+                0.5833
+              ],
+              [
+                -6.3333,
+                1.9167
+              ],
+              [
+                -5.3333,
+                0.5833
+              ],
+              [
+                -4.3333,
+                1.9167
+              ],
+              [
+                -3.3333,
+                0.5833
+              ],
+              [
+                -2.3333,
+                1.9167
+              ],
+              [
+                -1.3333,
+                0.5833
+              ],
+              [
+                -0.3333,
+                1.9167
+              ],
+              [
+                0.6667,
+                0.5833
+              ],
+              [
+                1.3333,
+                1.25
+              ],
+              [
+                2.3333,
+                1.25
+              ]
+            ],
+            "verbinden": true,
+            "name": "Feder"
+          },
+          {
+            "art": "punkte",
+            "punkte": [
+              [
+                2.3333,
+                2.5
+              ],
+              [
+                5.6667,
+                2.5
+              ],
+              [
+                5.6667,
+                0
+              ],
+              [
+                2.3333,
+                0
+              ],
+              [
+                2.3333,
+                2.5
+              ]
+            ],
+            "verbinden": true,
+            "name": "Wagen m"
+          },
+          {
+            "art": "punkte",
+            "punkte": [
+              [
+                -12.5,
+                6.6667
+              ],
+              [
+                -11.8333,
+                6.6667
+              ],
+              [
+                -11.8333,
+                0
+              ],
+              [
+                -12.5,
+                0
+              ],
+              [
+                -12.5,
+                6.6667
+              ]
+            ],
+            "verbinden": true,
+            "name": "Wand"
+          }
+        ],
+        "elemente": [
+          {
+            "art": "linie",
+            "von": [
+              -12.5,
+              0
+            ],
+            "bis": [
+              11.6667,
+              0
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              -4,
+              0
+            ],
+            "bis": [
+              -4,
+              -0.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              4,
+              0
+            ],
+            "bis": [
+              4,
+              -0.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              7
+            ],
+            "bis": [
+              0,
+              6.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              6.3333
+            ],
+            "bis": [
+              0,
+              6
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              5.6667
+            ],
+            "bis": [
+              0,
+              5.3333
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              5
+            ],
+            "bis": [
+              0,
+              4.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              4.3333
+            ],
+            "bis": [
+              0,
+              4
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              3.6667
+            ],
+            "bis": [
+              0,
+              3.3333
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              3
+            ],
+            "bis": [
+              0,
+              2.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              2.3333
+            ],
+            "bis": [
+              0,
+              2
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              1.6667
+            ],
+            "bis": [
+              0,
+              1.3333
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              1
+            ],
+            "bis": [
+              0,
+              0.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              0.3333
+            ],
+            "bis": [
+              0,
+              0
+            ],
+            "name": ""
+          },
+          {
+            "art": "linie",
+            "von": [
+              0,
+              -0.3333
+            ],
+            "bis": [
+              0,
+              -0.6667
+            ],
+            "name": ""
+          },
+          {
+            "art": "pfeil",
+            "von": [
+              0,
+              4.1667
+            ],
+            "bis": [
+              4,
+              4.1667
+            ],
+            "name": "x̂ = 4 cm"
+          },
+          {
+            "art": "text",
+            "bei": [
+              0,
+              7.5
+            ],
+            "text": "Ruhelage x = 0"
+          },
+          {
+            "art": "text",
+            "bei": [
+              -4,
+              -2
+            ],
+            "text": "−x̂"
+          },
+          {
+            "art": "text",
+            "bei": [
+              4,
+              -2
+            ],
+            "text": "+x̂"
+          },
+          {
+            "art": "text",
+            "bei": [
+              10.8333,
+              -2.9167
+            ],
+            "text": "rechts = positiv"
+          }
+        ]
+      }
     }
   },
   "themen": [
@@ -100,19 +468,19 @@
       },
       "formeln": [
         {
-          "zeichen": "F = −D·x",
+          "zeichen": "$F = -D\\cdot x$",
           "wann": "Rückstellkraft einer linearen Feder. Das Minus heißt: Die Kraft zeigt zur Ruhelage."
         },
         {
-          "zeichen": "ω₀ = √(D/m)",
-          "wann": "Kreisfrequenz, wenn Federkonstante und Masse bekannt sind. Einheit s⁻¹, nicht Hz."
+          "zeichen": "$\\omega_0 = \\sqrt{\\frac{D}{m}}$",
+          "wann": "Kreisfrequenz, wenn Federkonstante und Masse bekannt sind. Einheit $\\mathrm{s^{-1}}$, nicht Hz."
         },
         {
-          "zeichen": "T = 2π/ω₀ = 2π·√(m/D)",
+          "zeichen": "$T = \\frac{2\\pi}{\\omega_0} = 2\\pi\\sqrt{\\frac{m}{D}}$",
           "wann": "Dauer einer vollen Schwingung. Hängt im idealen Modell nicht von der Auslenkung ab."
         },
         {
-          "zeichen": "v̂ = x̂·ω₀",
+          "zeichen": "$\\hat v = \\hat x\\cdot\\omega_0$",
           "wann": "Größte Geschwindigkeit, beim Durchgang durch die Ruhelage."
         }
       ],
@@ -127,14 +495,14 @@
   "aufgaben": [
     {
       "id": "imp-01",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-impuls",
       "typ": "zahl",
       "art": "wiederholung",
       "stufe": 3,
       "sekunden": 60,
       "braucht": [],
-      "frage": "Ein Einkaufswagen mit m = 2 kg rollt mit v = 3 m/s. Wie groß ist sein Impuls p?",
+      "frage": "Ein Einkaufswagen mit $m = 2\\,\\mathrm{kg}$ rollt mit $v = 3\\,\\mathrm{m/s}$. Wie groß ist sein Impuls p?",
       "antwort": {
         "wert": 6,
         "einheit": "kg·m/s",
@@ -144,9 +512,9 @@
       "hinweise": [
         "Der Impuls verbindet zwei Größen, die beide in der Aufgabe stehen.",
         "Impuls = Masse mal Geschwindigkeit.",
-        "p = m·v = 2 kg · 3 m/s = 6 kg·m/s"
+        "$p = m\\cdot v = 2\\,\\mathrm{kg}\\cdot3\\,\\mathrm{m/s} = 6\\,\\mathrm{kg\\cdot m/s}$"
       ],
-      "erklaerung": "p = m·v nimmst du, wenn Masse und Geschwindigkeit eines Körpers bekannt sind. Hier 2 · 3 = 6 kg·m/s.",
+      "erklaerung": "$p = m\\cdot v$ nimmst du, wenn Masse und Geschwindigkeit eines Körpers bekannt sind. Hier $2\\cdot3 = 6\\,\\mathrm{kg\\cdot m/s}$.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -157,17 +525,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:d0038fb5f92f71c387f5b607b93a5d67226f1c792d765ec4ec3ecab2b8997770",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:3ed73f58ae580e634d0e360291988ca2fc5b85e5b50c14a9764f56e54fcc1dcd",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "imp-02",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-impuls",
       "typ": "formelwahl",
       "art": "wiederholung",
@@ -176,18 +544,18 @@
       "braucht": [],
       "frage": "Ein Tennisball wird 0,02 s lang vom Schläger getroffen. Du kennst die Impulsänderung und willst die mittlere Kraft. Welche Formel passt? Nur auswählen, nicht rechnen.",
       "optionen": [
-        "p = m·v",
-        "F·Δt = Δp",
-        "v' = (m₁v₁ + m₂v₂)/(m₁ + m₂)",
-        "T = 2π·√(m/D)"
+        "$p = m\\cdot v$",
+        "$F\\cdot\\Delta t = \\Delta p$",
+        "$v' = \\frac{m_1v_1 + m_2v_2}{m_1 + m_2}$",
+        "$T = 2\\pi\\sqrt{\\frac mD}$"
       ],
       "richtig": 1,
       "hinweise": [
         "„0,02 s lang“: Eine Kraft wirkt eine Zeit lang.",
         "Gesucht ist eine Formel mit Kraft, Zeit und Impulsänderung.",
-        "Kraftstoß: F·Δt = Δp, umgestellt F = Δp/Δt."
+        "Kraftstoß: $F\\cdot\\Delta t = \\Delta p$, umgestellt $F = \\frac{\\Delta p}{\\Delta t}$."
       ],
-      "erklaerung": "Wirkt eine Kraft über eine Zeitspanne, ändert sie den Impuls: F·Δt = Δp. Die Formel mit v' gilt nur, wenn zwei Körper zusammenstoßen und aneinander hängen bleiben.",
+      "erklaerung": "Wirkt eine Kraft über eine Zeitspanne, ändert sie den Impuls: $F\\cdot\\Delta t = \\Delta p$. Die Formel mit v' gilt nur, wenn zwei Körper zusammenstoßen und aneinander hängen bleiben.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [],
@@ -195,24 +563,24 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:e0bfe2ce477cc71db8b238644a02f1d50be605eba9afde2f9f1092247d149646",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:3d9f7116ba49f0e0fb77bbcdbfd9da18d082185214b272d6431dc30e123632c7",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "imp-03",
-      "version": 2,
+      "version": 3,
       "thema": "physik1-impuls",
       "typ": "zahl",
       "art": "wiederholung",
       "stufe": 3,
       "sekunden": 180,
       "braucht": [],
-      "frage": "Auf einer reibungsfreien Schiene rollt Wagen 1 (m₁ = 4 kg, v₁ = 3 m/s) auf den ruhenden Wagen 2 (m₂ = 2 kg). Beide koppeln zusammen. Wie schnell rollen sie danach gemeinsam?",
+      "frage": "Auf einer reibungsfreien Schiene rollt Wagen 1 ($m_1 = 4\\,\\mathrm{kg}$, $v_1 = 3\\,\\mathrm{m/s}$) auf den ruhenden Wagen 2 ($m_2 = 2\\,\\mathrm{kg}$). Beide koppeln zusammen. Wie schnell rollen sie danach gemeinsam?",
       "antwort": {
         "wert": 2,
         "einheit": "m/s",
@@ -220,14 +588,14 @@
         "tol_rel": 0.02
       },
       "fehlerbild": {
-        "3": "Du hast nur durch m₁ geteilt. Nach dem Koppeln bewegen sich beide Wagen, teile durch m₁ + m₂."
+        "3": "Du hast nur durch $m_1$ geteilt. Nach dem Koppeln bewegen sich beide Wagen, teile durch $m_1+m_2$."
       },
       "hinweise": [
         "Von außen wirkt in Fahrtrichtung keine Kraft. Welche Größe bleibt dann erhalten?",
-        "Impuls vorher = Impuls nachher: m₁·v₁ + m₂·0 = (m₁ + m₂)·v'.",
-        "v' = (4 · 3)/(4 + 2) m/s = 12/6 m/s = 2 m/s"
+        "Impuls vorher = Impuls nachher: $m_1\\cdot v_1 + m_2\\cdot0 = (m_1+m_2)\\cdot v'$.",
+        "$v' = \\frac{4\\cdot3}{4+2}\\,\\mathrm{m/s} = \\frac{12}{6}\\,\\mathrm{m/s} = 2\\,\\mathrm{m/s}$"
       ],
-      "erklaerung": "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also v' = 2 m/s.",
+      "erklaerung": "Der Impuls 12 kg·m/s verteilt sich nach dem Koppeln auf 6 kg, also $v' = 2\\,\\mathrm{m/s}$.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -237,17 +605,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 2,
-        "pruef_hash": "sha256:56de55d4b366d60bb0ed478a1f40c769a52754e6181f43659f49578b07b8265a",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 3,
+        "pruef_hash": "sha256:84743257c505fa342496263efb5236c3f5320c9950e0793043252e4fb9aadb8b",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "imp-04",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-impuls",
       "typ": "zahl",
       "art": "wiederholung",
@@ -256,7 +624,7 @@
       "braucht": [
         "imp-02"
       ],
-      "frage": "Ein Ball mit m = 0,06 kg liegt still und wird 0,02 s lang getroffen. Danach fliegt er mit 40 m/s. Wie groß ist die mittlere Kraft auf den Ball?",
+      "frage": "Ein Ball mit $m = 0{,}06\\,\\mathrm{kg}$ liegt still und wird 0,02 s lang getroffen. Danach fliegt er mit 40 m/s. Wie groß ist die mittlere Kraft auf den Ball?",
       "antwort": {
         "wert": 120,
         "einheit": "N",
@@ -264,15 +632,15 @@
         "tol_rel": 0.02
       },
       "fehlerbild": {
-        "2.4": "Das ist die Impulsänderung Δp. Teile noch durch Δt.",
-        "0.048": "Du hast mit Δt malgenommen. Für die Kraft teilst du durch Δt."
+        "2.4": "Das ist die Impulsänderung $\\Delta p$. Teile noch durch $\\Delta t$.",
+        "0.048": "Du hast mit $\\Delta t$ malgenommen. Für die Kraft teilst du durch $\\Delta t$."
       },
       "hinweise": [
         "Erst die Impulsänderung, dann die Kraft.",
-        "Δp = m·Δv, danach F = Δp/Δt.",
-        "Δp = 0,06 kg · 40 m/s = 2,4 kg·m/s, F = 2,4/0,02 N = 120 N"
+        "$\\Delta p = m\\cdot\\Delta v$, danach $F = \\frac{\\Delta p}{\\Delta t}$.",
+        "$\\Delta p = 0{,}06\\,\\mathrm{kg}\\cdot40\\,\\mathrm{m/s} = 2{,}4\\,\\mathrm{kg\\cdot m/s}$, $F = \\frac{2{,}4}{0{,}02}\\,\\mathrm{N} = 120\\,\\mathrm{N}$"
       ],
-      "erklaerung": "Kraftstoß: F·Δt = Δp. Je kürzer der Stoß, desto größer die Kraft für dieselbe Impulsänderung.",
+      "erklaerung": "Kraftstoß: $F\\cdot\\Delta t = \\Delta p$. Je kürzer der Stoß, desto größer die Kraft für dieselbe Impulsänderung.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -282,17 +650,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:1c9143d38a9aa008f299296d35793ad3b3cf19e85031911f5a02d219b5ed3f83",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:d3c06f3311a0579d9e2e26b67d4afbf88f3cb3690b624a98181c7e486b36ef8a",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-01",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "wahrfalsch",
       "art": "neu",
@@ -306,7 +674,7 @@
         "Eine volle Schwingung endet erst, wenn Ort und Richtung wieder wie am Anfang sind.",
         "Stimmt: T reicht von einem Umkehrpunkt über den anderen zurück zum ersten."
       ],
-      "erklaerung": "Richtig. T misst eine ganze Schwingung. Nur von einer Seite zur anderen wäre T/2.",
+      "erklaerung": "Richtig. T misst eine ganze Schwingung. Nur von einer Seite zur anderen wäre $\\frac T2$.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [],
@@ -315,17 +683,17 @@
           "gemini"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:3375aacef76d63ac111c776130eeeda40e9d8f6beaabbbe612404c42283075e3",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:fee474fc96ffa061123d510f8a01bdd0a07d142ade476fcafb532a8dfa743c03",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-02",
-      "version": 2,
+      "version": 3,
       "thema": "physik1-federschwinger",
       "typ": "mc",
       "art": "neu",
@@ -333,7 +701,7 @@
       "sekunden": 60,
       "braucht": [],
       "skizze": "wagen",
-      "frage": "Der Wagen steht gerade ganz rechts bei x = +x̂ (Skizze), kurz bevor er zurückschwingt. Was stimmt in genau diesem Moment?",
+      "frage": "Der Wagen steht gerade ganz rechts bei $x = +\\hat x$ (Skizze), kurz bevor er zurückschwingt. Was stimmt in genau diesem Moment?",
       "optionen": [
         "v ist am größten, die Federkraft ist null.",
         "v ist null, der Betrag der Federkraft ist am größten.",
@@ -344,9 +712,9 @@
       "hinweise": [
         "Was muss der Wagen tun, um die Richtung zu wechseln?",
         "Zum Umkehren steht er einen Augenblick still. Wie weit ist die Feder dort gedehnt?",
-        "v = 0, und nach |F| = D·|x| ist die Kraft bei x = x̂ am größten."
+        "$v = 0$, und nach $|F| = D\\cdot|x|$ ist die Kraft bei $x = \\hat x$ am größten."
       ],
-      "erklaerung": "Am Umkehrpunkt kehrt der Wagen um, also v = 0. Die Feder ist dort am weitesten gedehnt und zieht mit |F| = D·x̂ am stärksten zur Ruhelage.",
+      "erklaerung": "Am Umkehrpunkt kehrt der Wagen um, also $v = 0$. Die Feder ist dort am weitesten gedehnt und zieht mit $|F| = D\\cdot\\hat x$ am stärksten zur Ruhelage.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [],
@@ -354,17 +722,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 2,
-        "pruef_hash": "sha256:233ede929bf1204de98de00efbda5424008fa00c42ecbc9a3e453d2f52ee7b36",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 3,
+        "pruef_hash": "sha256:5ba236828e291661e959cffc1003445c331c499ecce3af3b2aa8f7de6aeaf3a8",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-03",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "mc",
       "art": "neu",
@@ -381,7 +749,7 @@
       "richtig": 1,
       "hinweise": [
         "Eine harte Feder zieht stärker zurück. Kommt der Wagen dadurch schneller oder langsamer zurück?",
-        "Wo steht D in T = 2π·√(m/D): im Zähler oder im Nenner?",
+        "Wo steht D in $T = 2\\pi\\sqrt{\\frac mD}$: im Zähler oder im Nenner?",
         "D steht im Nenner. Größeres D macht den Bruch kleiner, also wird T kleiner."
       ],
       "erklaerung": "Härtere Feder, stärkere Rückstellkraft, schnellere Schwingung.",
@@ -393,24 +761,24 @@
           "gemini"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:1c18d5107f3013102da9540962a5f7bbaf9cdbf1de2280a640d3c2fbf9a54349",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:81536333c876b1aa12a4e55dc5227b55173ad3e5056ae202ed533aaa6a646cb0",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-04",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "zahl",
       "art": "neu",
       "stufe": 3,
       "sekunden": 45,
       "braucht": [],
-      "frage": "Eine Schaukel schwingt mit der Frequenz f = 0,5 Hz. Wie lange dauert eine volle Schwingung?",
+      "frage": "Eine Schaukel schwingt mit der Frequenz $f = 0{,}5\\,\\mathrm{Hz}$. Wie lange dauert eine volle Schwingung?",
       "antwort": {
         "wert": 2,
         "einheit": "s",
@@ -419,10 +787,10 @@
       },
       "hinweise": [
         "0,5 Hz heißt: eine halbe Schwingung pro Sekunde.",
-        "Frequenz und Periodendauer sind Kehrwerte: T = 1/f.",
-        "T = 1/0,5 Hz = 2 s"
+        "Frequenz und Periodendauer sind Kehrwerte: $T = \\frac1f$.",
+        "$T = \\frac{1}{0{,}5\\,\\mathrm{Hz}} = 2\\,\\mathrm{s}$"
       ],
-      "erklaerung": "T = 1/f gilt für jede Schwingung, egal ob Feder oder Schaukel.",
+      "erklaerung": "$T = \\frac1f$ gilt für jede Schwingung, egal ob Feder oder Schaukel.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -433,30 +801,30 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:fcb885cf79d7a5382ea07fed93c2bd06c14167a37372c32cca333aeb4ddc2fe7",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:780e9caa0fddd0adbf6b266f134e31d49eea1b169afff31d1464621ec4918fe9",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-05",
-      "version": 2,
+      "version": 3,
       "thema": "physik1-federschwinger",
       "typ": "beispiel",
       "art": "neu",
       "stufe": 4,
       "sekunden": 90,
       "braucht": [],
-      "frage": "Durchgerechnetes Beispiel: Unser Wagen hat m = 0,5 kg, die Feder D = 50 N/m. Wie groß sind ω₀ und T?",
+      "frage": "Durchgerechnetes Beispiel: Unser Wagen hat $m = 0{,}5\\,\\mathrm{kg}$, die Feder $D = 50\\,\\mathrm{N/m}$. Wie groß sind $\\omega_0$ und T?",
       "schritte": [
-        "Gegeben: m = 0,5 kg, D = 50 N/m. Gesucht: ω₀ und T.",
-        "Situation erkennen: Masse an einer linearen Feder, also passt ω₀ = √(D/m).",
-        "Einsetzen: ω₀ = √(50/0,5) s⁻¹ = √100 s⁻¹ = 10 s⁻¹.",
-        "Periodendauer: T = 2π/ω₀ = 2π/10 s ≈ 0,628 s.",
-        "Prüfen: f = 1/T ≈ 1,6 Hz, also etwa 1,6 Schwingungen pro Sekunde. Einheit stimmt."
+        "Gegeben: $m = 0{,}5\\,\\mathrm{kg}$, $D = 50\\,\\mathrm{N/m}$. Gesucht: $\\omega_0$ und T.",
+        "Situation erkennen: Masse an einer linearen Feder, also passt $\\omega_0 = \\sqrt{\\frac{D}{m}}$.",
+        "Einsetzen: $\\omega_0 = \\sqrt{\\frac{50}{0{,}5}}\\,\\mathrm{s^{-1}} = \\sqrt{100}\\,\\mathrm{s^{-1}} = 10\\,\\mathrm{s^{-1}}$.",
+        "Periodendauer: $T = \\frac{2\\pi}{\\omega_0} = \\frac{2\\pi}{10}\\,\\mathrm{s} \\approx 0{,}628\\,\\mathrm{s}$.",
+        "Prüfen: $f = \\frac1T \\approx 1{,}6\\,\\mathrm{Hz}$, also etwa 1,6 Schwingungen pro Sekunde. Einheit stimmt."
       ],
       "erklaerung": "Der Weg: Gegeben/Gesucht, Situation erkennen, Formel wählen, einsetzen, Einheit und Größenordnung prüfen.",
       "pruefung": {
@@ -469,17 +837,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 2,
-        "pruef_hash": "sha256:80cd0d888e980ee168c187347a7737b3b8492fc59b7f8c16a03ad40dedb8e76e",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 3,
+        "pruef_hash": "sha256:bc6da1a7a34fe54948cb21e9e0356a5952118a74e3163324899254aaade2c5dc",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-06",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "luecken",
       "art": "neu",
@@ -488,22 +856,22 @@
       "braucht": [
         "sch-05"
       ],
-      "frage": "Beispiel mit Lücken: m = 2 kg, D = 32 N/m. Füll die Lücken.",
+      "frage": "Beispiel mit Lücken: $m = 2\\,\\mathrm{kg}$, $D = 32\\,\\mathrm{N/m}$. Füll die Lücken.",
       "schritte": [
         {
-          "text": "Formel: ω₀ = √(D/m)"
+          "text": "Formel: $\\omega_0 = \\sqrt{\\frac{D}{m}}$"
         },
         {
-          "text": "ω₀ = √(32/2) s⁻¹ = ___ s⁻¹",
+          "text": "$\\omega_0 = \\sqrt{\\frac{32}{2}}\\,\\mathrm{s^{-1}} =$ ___ $\\mathrm{s^{-1}}$",
           "luecke": {
             "wert": 4,
-            "einheit": "s⁻¹",
+            "einheit": "$\\mathrm{s^{-1}}$",
             "tol_abs": 0.01,
             "tol_rel": 0
           }
         },
         {
-          "text": "T = 2π/ω₀ = ___ s",
+          "text": "$T = \\frac{2\\pi}{\\omega_0} =$ ___ s",
           "luecke": {
             "wert": 1.5708,
             "einheit": "s",
@@ -514,8 +882,8 @@
       ],
       "hinweise": [
         "Erst den Bruch unter der Wurzel ausrechnen.",
-        "32/2 = 16, davon die Wurzel. Dann 2π durch dieses Ergebnis.",
-        "ω₀ = 4 s⁻¹, T = 2π/4 s ≈ 1,57 s"
+        "$\\frac{32}{2} = 16$, davon die Wurzel. Dann $2\\pi$ durch dieses Ergebnis.",
+        "$\\omega_0 = 4\\,\\mathrm{s^{-1}}$, $T = \\frac{2\\pi}{4}\\,\\mathrm{s} \\approx 1{,}57\\,\\mathrm{s}$"
       ],
       "erklaerung": "Derselbe Weg wie im Beispiel davor, nur mit anderen Zahlen.",
       "pruefung": {
@@ -528,17 +896,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:6d80d2ccde0a047d4c2ef1c711bebc0d5bb79819c5b8fefbfdfa68415499c23c",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:2efe0cfa8766574c2a1d73b3c525840deaa1c4034f1d4cf66e4f739807a13eb0",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-07",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "zahl",
       "art": "neu",
@@ -547,7 +915,7 @@
       "braucht": [
         "sch-06"
       ],
-      "frage": "Jetzt allein: m = 0,2 kg, D = 80 N/m. Wie groß ist die Frequenz f?",
+      "frage": "Jetzt allein: $m = 0{,}2\\,\\mathrm{kg}$, $D = 80\\,\\mathrm{N/m}$. Wie groß ist die Frequenz f?",
       "antwort": {
         "wert": 3.1831,
         "einheit": "Hz",
@@ -555,15 +923,15 @@
         "tol_rel": 0.02
       },
       "fehlerbild": {
-        "20": "Das ist ω₀. Teile noch durch 2π.",
-        "0.3142": "Das ist T. Gesucht war f = 1/T."
+        "20": "Das ist $\\omega_0$. Teile noch durch $2\\pi$.",
+        "0.3142": "Das ist T. Gesucht war $f = \\frac1T$."
       },
       "hinweise": [
         "Gesucht ist f, nicht T. Was rechnest du zuerst aus?",
-        "Erst ω₀ = √(D/m), dann f = ω₀/(2π).",
-        "ω₀ = √400 s⁻¹ = 20 s⁻¹, f = 20/(2π) Hz ≈ 3,18 Hz"
+        "Erst $\\omega_0 = \\sqrt{\\frac{D}{m}}$, dann $f = \\frac{\\omega_0}{2\\pi}$.",
+        "$\\omega_0 = \\sqrt{400}\\,\\mathrm{s^{-1}} = 20\\,\\mathrm{s^{-1}}$, $f = \\frac{20}{2\\pi}\\,\\mathrm{Hz} \\approx 3{,}18\\,\\mathrm{Hz}$"
       ],
-      "erklaerung": "Typischer Fehler: ω₀ als Frequenz abgeben. ω₀ ist 2π-mal so groß wie f.",
+      "erklaerung": "Typischer Fehler: $\\omega_0$ als Frequenz abgeben. $\\omega_0$ ist $2\\pi$-mal so groß wie f.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -574,17 +942,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:0b6b7244c814f28cd1c8c3849d71c9ab535f8d291a84b5e38f6b517bc6b02c6c",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:01b37a7fb01ca3c69a6f0526a45929d7e2b6e79187a84a0d59d58e06e4ea216a",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-08",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "formelwahl",
       "art": "neu",
@@ -593,17 +961,17 @@
       "braucht": [],
       "frage": "Du kennst die Federkonstante D und die Auslenkung x aus der Ruhelage. Welche Formel liefert direkt die Rückstellkraft? Nicht rechnen.",
       "optionen": [
-        "F = −D·x",
-        "T = 2π·√(m/D)",
-        "p = m·v"
+        "$F = -D\\cdot x$",
+        "$T = 2\\pi\\sqrt{\\frac mD}$",
+        "$p = m\\cdot v$"
       ],
       "richtig": 0,
       "hinweise": [
         "Gesucht ist eine Kraft, die zur Mitte zeigt.",
         "Die Kraft wächst mit der Auslenkung und zeigt entgegen.",
-        "Das ist F = −D·x."
+        "Das ist $F = -D\\cdot x$."
       ],
-      "erklaerung": "Bei x > 0 ist F < 0, die Kraft zeigt zurück. T ist eine Zeit, p ein Impuls. F = −D·x gilt für eine lineare Feder, nicht für jede Schwingung.",
+      "erklaerung": "Bei $x > 0$ ist $F < 0$, die Kraft zeigt zurück. T ist eine Zeit, p ein Impuls. $F = -D\\cdot x$ gilt für eine lineare Feder, nicht für jede Schwingung.",
       "pruefung": {
         "geschrieben_von": "codex",
         "nachgerechnet_von": [],
@@ -612,37 +980,37 @@
           "gemini"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:123d6738c31f203ca2d22c77c1c9b5cff35a0af222967d59182a8a9e1213aea1",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:0436b2cdea5cac03a3a54265d1c97b5c19cfa82e9a2d54c8d989e60b114e6693",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-09",
-      "version": 2,
+      "version": 3,
       "thema": "physik1-federschwinger",
       "typ": "formelwahl",
       "art": "neu",
       "stufe": 4,
       "sekunden": 60,
       "braucht": [],
-      "frage": "Ein Fadenpendel (Länge l = 1 m, kleine Auslenkung) und ein Federschwinger schwingen. Du verdoppelst bei beiden die Masse. Was passiert mit T? Nicht rechnen.",
+      "frage": "Ein Fadenpendel (Länge $l = 1\\,\\mathrm{m}$, kleine Auslenkung) und ein Federschwinger schwingen. Du verdoppelst bei beiden die Masse. Was passiert mit T? Nicht rechnen.",
       "optionen": [
         "Bei beiden wird T größer.",
-        "Beim Federschwinger wird T √2-mal so groß, beim Fadenpendel bleibt T gleich.",
+        "Beim Federschwinger wird T $\\sqrt2$-mal so groß, beim Fadenpendel bleibt T gleich.",
         "Beim Fadenpendel wird T größer, beim Federschwinger bleibt T gleich.",
         "Bei beiden bleibt T gleich."
       ],
       "richtig": 1,
       "hinweise": [
-        "Vergleiche die beiden Formeln: Feder T = 2π·√(m/D), Faden T = 2π·√(l/g).",
+        "Vergleiche die beiden Formeln: Feder $T = 2\\pi\\sqrt{\\frac mD}$, Faden $T = 2\\pi\\sqrt{\\frac lg}$.",
         "In welcher der beiden Formeln steht m überhaupt?",
-        "Beim Faden kürzt sich m heraus. Bei der Feder steht m unter der Wurzel, doppelte Masse gibt √2-mal so viel T."
+        "Beim Faden kürzt sich m heraus. Bei der Feder steht m unter der Wurzel, doppelte Masse gibt $\\sqrt2$-mal so viel T."
       ],
-      "erklaerung": "Feder da: T = 2π·√(m/D), die Masse zählt. Faden mit Schwerkraft: T = 2π·√(l/g), die Masse zählt nicht (für kleine Auslenkungen).",
+      "erklaerung": "Feder da: $T = 2\\pi\\sqrt{\\frac mD}$, die Masse zählt. Faden mit Schwerkraft: $T = 2\\pi\\sqrt{\\frac lg}$, die Masse zählt nicht (für kleine Auslenkungen).",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -652,17 +1020,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 2,
-        "pruef_hash": "sha256:4ffea762092992871b742002fc7e904ea2ab0bad25829a13eb0fcfcae57fc594",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 3,
+        "pruef_hash": "sha256:71ff5f5cfa1f3a6a9ced295193a3595137fedae78010831d801edb6900044166",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-10",
-      "version": 2,
+      "version": 3,
       "thema": "physik1-federschwinger",
       "typ": "zahl",
       "art": "neu",
@@ -672,7 +1040,7 @@
         "sch-05"
       ],
       "skizze": "wagen",
-      "frage": "Unser Wagen (ω₀ = 10 s⁻¹) wird um x̂ = 4 cm ausgelenkt und losgelassen (Skizze). Wie schnell ist er höchstens?",
+      "frage": "Unser Wagen ($\\omega_0 = 10\\,\\mathrm{s^{-1}}$) wird um $\\hat x = 4\\,\\mathrm{cm}$ ausgelenkt und losgelassen (Skizze). Wie schnell ist er höchstens?",
       "antwort": {
         "wert": 0.4,
         "einheit": "m/s",
@@ -684,8 +1052,8 @@
       },
       "hinweise": [
         "Wo ist der Wagen am schnellsten: am Umkehrpunkt oder in der Ruhelage?",
-        "v̂ = x̂·ω₀. Rechne x̂ erst in Meter um.",
-        "v̂ = 0,04 m · 10 s⁻¹ = 0,4 m/s"
+        "$\\hat v = \\hat x\\cdot\\omega_0$. Rechne $\\hat x$ erst in Meter um.",
+        "$\\hat v = 0{,}04\\,\\mathrm{m}\\cdot10\\,\\mathrm{s^{-1}} = 0{,}4\\,\\mathrm{m/s}$"
       ],
       "erklaerung": "Am schnellsten ist der Wagen in der Ruhelage. Achte auf cm → m.",
       "pruefung": {
@@ -698,17 +1066,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 2,
-        "pruef_hash": "sha256:bb7b4fad9b9db91eeacba8c4142d33343385db409968336d9c12c93ce233bbb0",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 3,
+        "pruef_hash": "sha256:49d800ec8fe44aebd6de9ff5af97e423a3eda4bb6d9c4b509e419756ec94959c",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-11",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "zahl",
       "art": "neu",
@@ -717,7 +1085,7 @@
       "braucht": [
         "sch-10"
       ],
-      "frage": "Für unseren Wagen gilt x(t) = x̂·cos(ω₀t) mit x̂ = 0,040 m und ω₀ = 10 s⁻¹. Rechts ist positiv. Wie groß ist die Geschwindigkeit mit Vorzeichen bei t = T/4?",
+      "frage": "Für unseren Wagen gilt $x(t) = \\hat x\\cdot\\cos(\\omega_0t)$ mit $\\hat x = 0{,}040\\,\\mathrm{m}$ und $\\omega_0 = 10\\,\\mathrm{s^{-1}}$. Rechts ist positiv. Wie groß ist die Geschwindigkeit mit Vorzeichen bei $t = \\frac T4$?",
       "antwort": {
         "wert": -0.4,
         "einheit": "m/s",
@@ -729,10 +1097,10 @@
       },
       "hinweise": [
         "Die Geschwindigkeit ist die Ableitung der Auslenkung. In welche Richtung fährt der Wagen beim ersten Durchgang durch die Mitte?",
-        "v(t) = −x̂·ω₀·sin(ω₀t). Bei t = T/4 ist ω₀t = π/2.",
-        "sin(π/2) = 1, also v = −0,040 · 10 m/s = −0,40 m/s"
+        "$v(t) = -\\hat x\\cdot\\omega_0\\cdot\\sin(\\omega_0t)$. Bei $t = \\frac T4$ ist $\\omega_0t = \\frac\\pi2$.",
+        "$\\sin\\left(\\frac\\pi2\\right) = 1$, also $v = -0{,}040\\cdot10\\,\\mathrm{m/s} = -0{,}40\\,\\mathrm{m/s}$"
       ],
-      "erklaerung": "Der Wagen startet rechts und fährt nach links durch die Mitte. Dort ist er am schnellsten, die ganze Federenergie ist Bewegungsenergie: ½·50·0,04² J = ½·0,5·0,4² J = 0,04 J.",
+      "erklaerung": "Der Wagen startet rechts und fährt nach links durch die Mitte. Dort ist er am schnellsten, die ganze Federenergie ist Bewegungsenergie: $\\frac12\\cdot50\\cdot0{,}04^2\\,\\mathrm{J} = \\frac12\\cdot0{,}5\\cdot0{,}4^2\\,\\mathrm{J} = 0{,}04\\,\\mathrm{J}$.",
       "klausurniveau": "Kandidat, nicht an echten Prüfungsaufgaben bestätigt",
       "pruefung": {
         "geschrieben_von": "codex",
@@ -744,24 +1112,24 @@
           "claude"
         ],
         "status": "ok",
-        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:893d4aa49ec759ff6f7bf3ecde1881f6c85ba5ba2e1c3950306907e48f65304e",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Vorhandene unabhängige Prüfung aus Planungsrunde 1 übernommen (t2-Übergabe, Abschnitt 6; ursprünglicher Prüfeintrag). Inhalt unverändert, technische Migration. Keine neue fachliche Prüfung durch diesen Baulauf behauptet. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:3534561695c9215f89bea50f8a80207166676f612ea48c53997c83e1b7ae21d2",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-12",
-      "version": 1,
+      "version": 2,
       "thema": "physik1-federschwinger",
       "typ": "zahl",
       "art": "neu",
       "stufe": 5,
       "sekunden": 240,
       "braucht": [],
-      "frage": "Klausurniveau, Teil a: Zwei Personen mit zusammen 60 kg steigen in ein Auto. Die Karosserie über einem Rad sinkt um 2 cm. Nimm an, die ganze Last liegt auf dieser einen Radfeder. Wie groß ist ihre Federkonstante D? (g = 9,81 m/s²)",
+      "frage": "Klausurniveau, Teil a: Zwei Personen mit zusammen 60 kg steigen in ein Auto. Die Karosserie über einem Rad sinkt um 2 cm. Nimm an, die ganze Last liegt auf dieser einen Radfeder. Wie groß ist ihre Federkonstante D? ($g = 9{,}81\\,\\mathrm{m/s^2}$)",
       "antwort": {
         "wert": 29430,
         "einheit": "N/m",
@@ -773,10 +1141,10 @@
       },
       "hinweise": [
         "Im Stillstand halten sich Gewichtskraft und Federkraft die Waage.",
-        "m·g = D·Δx, nach D umstellen.",
-        "D = 60 · 9,81 N / 0,02 m = 29 430 N/m"
+        "$m\\cdot g = D\\cdot\\Delta x$, nach D umstellen.",
+        "$D = \\frac{60\\cdot9{,}81\\,\\mathrm{N}}{0{,}02\\,\\mathrm{m}} = 29\\,430\\,\\mathrm{N/m}$"
       ],
-      "erklaerung": "Statische Messung einer Federkonstante: Gewichtskraft m·g gleich Federkraft D·Δx. Die Annahme 'ganze Last auf einer Feder' macht die Rechnung einfach, bei echten Autos verteilt sie sich.",
+      "erklaerung": "Statische Messung einer Federkonstante: Gewichtskraft $m\\cdot g$ gleich Federkraft $D\\cdot\\Delta x$. Die Annahme 'ganze Last auf einer Feder' macht die Rechnung einfach, bei echten Autos verteilt sie sich.",
       "pruefung": {
         "geschrieben_von": "claude",
         "nachgerechnet_von": [
@@ -787,17 +1155,17 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 1,
-        "pruef_hash": "sha256:78c8d94d730a91f8e8b7c2beb8f640e1fce402433b1d2eaed5e2096d2b87e9bc",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 2,
+        "pruef_hash": "sha256:8dfa04f7fe2fda5776bf2a4f96ecd54bfec36561510b2a10fdc9d8b6a1b7a8d3",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
     },
     {
       "id": "sch-13",
-      "version": 2,
+      "version": 3,
       "thema": "physik1-federschwinger",
       "typ": "zahl",
       "art": "neu",
@@ -806,7 +1174,7 @@
       "braucht": [
         "sch-12"
       ],
-      "frage": "Teil b: Auf dieser Feder schwingt ein Viertel der Karosserie, m = 300 kg, mit D = 29 430 N/m. Mit welcher Frequenz wippt sie nach einer Bodenwelle, wenn du Dämpfung vernachlässigst?",
+      "frage": "Teil b: Auf dieser Feder schwingt ein Viertel der Karosserie, $m = 300\\,\\mathrm{kg}$, mit $D = 29\\,430\\,\\mathrm{N/m}$. Mit welcher Frequenz wippt sie nach einer Bodenwelle, wenn du Dämpfung vernachlässigst?",
       "antwort": {
         "wert": 1.5764,
         "einheit": "Hz",
@@ -814,12 +1182,12 @@
         "tol_rel": 0.02
       },
       "fehlerbild": {
-        "9.905": "Das ist ω₀. Teile noch durch 2π."
+        "9.905": "Das ist $\\omega_0$. Teile noch durch $2\\pi$."
       },
       "hinweise": [
         "Wieder ein Federschwinger, nur größer.",
-        "ω₀ = √(D/m), danach f = ω₀/(2π).",
-        "ω₀ = √98,1 s⁻¹ ≈ 9,90 s⁻¹, f ≈ 1,58 Hz"
+        "$\\omega_0 = \\sqrt{\\frac{D}{m}}$, danach $f = \\frac{\\omega_0}{2\\pi}$.",
+        "$\\omega_0 = \\sqrt{98{,}1}\\,\\mathrm{s^{-1}} \\approx 9{,}90\\,\\mathrm{s^{-1}}$, $f \\approx 1{,}58\\,\\mathrm{Hz}$"
       ],
       "erklaerung": "Dieselbe Formel wie beim kleinen Wagen. Ein echtes Auto ist gedämpft, das ideale Modell gibt nur die Größenordnung.",
       "pruefung": {
@@ -832,10 +1200,10 @@
           "codex"
         ],
         "status": "ok",
-        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt.",
-        "fuer_version": 2,
-        "pruef_hash": "sha256:67b37fc89d2717363256fe8eedf9a90c28975dc0fbe0b5e35ecff92a595b7a45",
-        "kontext_hash": "sha256:c4391cd94bdfcccf11fa4f770c553d18f4a66ca0ddcdf0e672fd22fd30f49de6"
+        "notiz": "Statusübernahme gemäß Simons ausdrücklicher Entscheidung vom 2026-11-17: letzter Bearbeiter Claude, Prüfer Codex. Vorprüfung belegt in ergebnis/entscheidungen.md Abschnitt 3. Zahlen erneut per Skript nachgerechnet. Demo bleibt gesperrt. Darstellungsmigration /3 (Codex, 2026-11-18): LaTeX und grafik/1, neue technische Hashes. Übernommener Demo-Prüfstatus; keine neue fachliche Freigabe oder Betriebsfreigabe.",
+        "fuer_version": 3,
+        "pruef_hash": "sha256:b33aee777ff1c97b7aa2bda3f7948ff2761882263521f4e486a2352fc794aabe",
+        "kontext_hash": "sha256:2ea413ab7579fd469153fc85fa7b6f0273b839829b244f22ab90f193d3b12703"
       },
       "demo_aufgabe": true,
       "punkte": null
@@ -847,7 +1215,7 @@
     "frage": "Erklär in ein, zwei Sätzen: Warum schwingt eine schwerere Masse an derselben Feder langsamer?",
     "kernpunkte": [
       "Die Feder zieht bei gleicher Auslenkung gleich stark.",
-      "Eine größere Masse wird von derselben Kraft weniger beschleunigt (F = m·a), deshalb dauert eine Schwingung länger."
+      "Eine größere Masse wird von derselben Kraft weniger beschleunigt ($F = m\\cdot a$), deshalb dauert eine Schwingung länger."
     ],
     "bewertung": "selbst",
     "selbsteinschaetzung": [

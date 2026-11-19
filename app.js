@@ -91,14 +91,20 @@ function fachName(id) {
 
 function zeichnen() {
   const plan = daten.lernplan || {};
-  const pruefungen = (plan.pruefungen || []).slice(0, 4);
-  $("pruefungen").replaceChildren(...pruefungen.map((p) => {
+  const termine = [...(plan.pruefungen || [])].sort((a, b) => new Date(a.start) - new Date(b.start));
+  function countdown(p) {
     const t = tageBis(p.start);
     const el = knoten("div", "pruefung" + (t <= 7 ? " bald" : ""));
     el.append(knoten("span", "tage", t <= 0 ? "heute" : t === 1 ? "morgen" : `in ${t} Tagen`),
       knoten("span", "was", p.titel), knoten("span", "klein", wann(p.start, p.ganztag) + (p.typ === "testat" ? " · Testat" : "")));
     return el;
-  }));
+  }
+  // Klausuren werden vollständig angezeigt; Testate belegen keine Klausurplätze.
+  const pruefungen = termine.filter(p => p.typ === "pruefung"), testate = termine.filter(p => p.typ === "testat");
+  $("pruefungen").replaceChildren(...pruefungen.map(countdown));
+  $("testate").replaceChildren(...testate.map(countdown));
+  $("klausuren-titel").hidden = pruefungen.length === 0;
+  $("testate-titel").hidden = testate.length === 0;
   const jetzt = Date.now();
   const naechste = (plan.vorlesungen || []).filter((v) => new Date(v.ende || v.start).getTime() > jetzt).slice(0, 5);
   $("naechstes").replaceChildren(...(naechste.length ? naechste.map((v) => {

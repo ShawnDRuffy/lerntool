@@ -1,4 +1,4 @@
-import {pruefen,kanonisch} from './pruef-kern.mjs';
+import {pruefen,kanonisch} from './pruef-kern.mjs?v=2026-11-18-r3';
 export const PREFIX='lerntool-r2-ereignis:';
 export const UUID=/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 export const datumBerlin=d=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);

@@ -8,13 +8,13 @@
   <meta name="theme-color" content="#14161c" media="(prefers-color-scheme: dark)">
   <meta name="robots" content="noindex">
   <title>Lerntool</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="katex/katex.min.css">
-  <script src="config.js"></script>
-  <script src="katex/katex.min.js" defer></script>
-  <script src="grafik.js" defer></script>
-  <script src="inhalt.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=2026-11-18-r3">
+  <link rel="stylesheet" href="katex/katex.min.css?v=2026-11-18-r3">
+  <script src="config.js?v=2026-11-18-r3"></script>
+  <script src="katex/katex.min.js?v=2026-11-18-r3" defer></script>
+  <script src="grafik.js?v=2026-11-18-r3" defer></script>
+  <script src="inhalt.js?v=2026-11-18-r3" defer></script>
+  <script src="app.js?v=2026-11-18-r3" defer></script>
 </head>
 <body>
   <header class="kopf">
@@ -36,7 +36,10 @@
 
     <section id="start" hidden>
       <nav aria-label="Lernen"><a href="einheit.html">Lerneinheit</a> · <a href="befragung.html">Befragung</a></nav>
+      <h2 id="klausuren-titel">Klausuren</h2>
       <div id="pruefungen" class="pruefungen"></div>
+      <h2 id="testate-titel">Testate</h2>
+      <div id="testate" class="pruefungen"></div>
       <h2>Als Nächstes</h2>
       <ol id="naechstes" class="termine"></ol>
       <h2>Fächer</h2>
@@ -55,5 +58,5 @@
 
     <p id="hinweis" class="hinweis" hidden></p>
   </main>
-</body>
+<footer class="version">Version 2026-11-18-r3</footer></body>
 </html>

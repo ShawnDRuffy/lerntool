@@ -1,5 +1,6 @@
+import {medienPruefen} from './medien-pruefung.mjs?v=2026-11-18-r3';
 // Gemeinsamer Validator für Browser und CLI. Aus Runde 1 extrahiert.
-const namen = {'lerneinheit/2':'lerneinheit','ereignisse/1':'ereignisse','tagesplan/1':'tagesplan','wochenendplan/1':'wochenendplan','auffrischung/2':'auffrischung'};
+const namen = {'lerneinheit/3':'lerneinheit','lerneinheit/2':'lerneinheit','ereignisse/1':'ereignisse','tagesplan/1':'tagesplan','wochenendplan/1':'wochenendplan','auffrischung/2':'auffrischung'};
 const own = (o,k) => Object.prototype.hasOwnProperty.call(o,k);
 const sum = xs => xs.reduce((a,b)=>a+b,0);
 const near = (a,b) => typeof a==='number' && typeof b==='number' && Math.abs(a-b)<=1e-8*Math.max(1,Math.abs(b));
@@ -16,7 +17,7 @@ export function kanonisch(x) {
 export const hash = async x => 'sha256:'+Array.from(new Uint8Array(await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(kanonisch(x)))),b=>b.toString(16).padStart(2,'0')).join('');
 export const inhaltsHash = x => hash(cloneWithout(x,['pruefung']));
 export function kontextHash(p) {
-  if (p.format==='lerneinheit/2') return hash({format:p.format,demo:p.demo,quellen:p.quellen,modell:p.modell??null,skizzen:p.skizzen,themen:p.themen,abschluss:p.abschluss});
+  if (['lerneinheit/2','lerneinheit/3'].includes(p.format)) return hash({format:p.format,demo:p.demo,quellen:p.quellen,modell:p.modell??null,skizzen:p.skizzen,themen:p.themen,abschluss:p.abschluss});
   if (p.format==='auffrischung/2') return hash(cloneWithout(p,['eintraege','freigegeben']));
   throw Error('Kontext-Hash nur für Lerneinheit und Auffrischung definiert.');
 }
@@ -53,7 +54,7 @@ export function schemaPruefen(x,s,root=s,path='$') {
     const results=s[key].map(v=>schemaPruefen(x,v,root,path));
     const count=results.filter(r=>!r.length).length;
     if(key==='oneOf'?count!==1:count===0) {
-      const discr=s[key].findIndex(v=>['typ','art'].some(k=>v.properties?.[k]?.const!==undefined && x?.[k]===v.properties[k].const));
+      const discr=s[key].findIndex(v=>['format','typ','art'].some(k=>v.properties?.[k]?.const!==undefined && x?.[k]===v.properties[k].const));
       if(discr>=0 && results[discr].length) e.push(...results[discr]);
       else if(count===0) {
         fail('keine zulässige Typvariante (Typ/Art und Pflichtfelder prüfen)');
@@ -117,6 +118,7 @@ export async function pruefen(p,{echt=true,schemas}={}) {
   const schema=schemas?.[name]; if(!schema) throw Error('Schema fehlt: '+name);
   fehler.push(...schemaPruefen(p,schema));
   if(fehler.length) return fehler; // Keine Folgefehler/Abstürze bei falschen Typen.
+  if(p.format==='lerneinheit/3') fehler.push(...await medienPruefen(p));
   check(!echt || !p.demo,'$.demo','Demo-Paket ist als echte Einheit/echter Betriebsdatensatz gesperrt; nur --demo erlaubt die technische Demonstration');
   if(own(p,'freigegeben')) {
     check(!p.demo || !p.freigegeben,'$.freigegeben','Demo muss freigegeben=false behalten');
@@ -125,7 +127,7 @@ export async function pruefen(p,{echt=true,schemas}={}) {
   const unique=(xs,path,key='id')=>check(new Set(xs.map(x=>x[key])).size===xs.length,path,'doppelte '+key+'; eindeutige Kennungen erwartet');
   const safePath=(s,path)=>check(!s || (!/^(?:[a-z]+:|[\\/])/i.test(s) && !s.split(/[\\/]/).includes('..') && !/[?#]/.test(s)),path,'relativer Pfad ohne .., URL, Query oder Zugangsdaten erwartet');
 
-  if(p.format==='lerneinheit/2') {
+  if(['lerneinheit/2','lerneinheit/3'].includes(p.format)) {
     unique(p.aufgaben,'$.aufgaben');unique(p.themen,'$.themen');unique(p.quellen,'$.quellen');
     const ids=new Map(p.aufgaben.map(a=>[a.id,a])), themes=new Map(p.themen.map(t=>[t.id,t])), sources=new Set(p.quellen.map(q=>q.id));
     check(p.demo===p.id.startsWith('demo-'),'$.id','Demo-Kennung muss mit demo- beginnen; echte Kennung darf das nicht');
@@ -135,7 +137,7 @@ export async function pruefen(p,{echt=true,schemas}={}) {
     for(const [k,s] of Object.entries(p.skizzen)) {
       check(s.aus_modell===p.modell?.id,'$.skizzen.'+k+'.aus_modell','Skizze muss das vorhandene Modell referenzieren');
       // Zusätzliche Früherkennung, KEIN HTML/SVG-Sanitizer für den späteren Browser.
-      check(!/<\s*(?:script|foreignObject|a|image|use|style|animate|set)\b|\son\w+\s*=|(?:href|style)\s*=|url\s*\(|<!/i.test(s.svg),'$.skizzen.'+k+'.svg','nur statisches SVG ohne ausführbare Elemente/Links/Styles erwartet');
+      if(p.format==='lerneinheit/2') check(!/<\s*(?:script|foreignObject|a|image|use|style|animate|set)\b|\son\w+\s*=|(?:href|style)\s*=|url\s*\(|<!/i.test(s.svg),'$.skizzen.'+k+'.svg','nur statisches SVG ohne ausführbare Elemente/Links/Styles erwartet');
     }
     for(const [i,a] of p.aufgaben.entries()) {
       const path='$.aufgaben['+i+']';await pruefnachweis(p,a,path,check);

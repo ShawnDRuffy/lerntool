@@ -1,12 +1,19 @@
-import {pruefen} from './pruef-kern.mjs';
-import {auswahl,neuerVersuch,naechsterHinweis,loesungErlaubt,auswerten,zahl,LernTimer,minutenMitPausen} from './lern-kern.mjs';
-import {$,anzeigen,element,meldung,datei,json,schemasLaden,queueStart,konfiguriert,angemeldet} from './lern-api.mjs';
+import {pruefen} from './pruef-kern.mjs?v=2026-11-18-r3';
+import {auswahl,neuerVersuch,naechsterHinweis,loesungErlaubt,auswerten,zahl,LernTimer,minutenMitPausen} from './lern-kern.mjs?v=2026-11-18-r3';
+import {$,meldung,datei,json,queueStart,konfiguriert,angemeldet} from './lern-api.mjs?v=2026-11-18-r3';
+const codeAufgabe = a => ['code_ausgabe','code_fehler','eclipse'].includes(a?.typ);
+function anzeigen(el,text,code=false){
+  if(code){el.textContent=String(text??'');return;}
+  if(!window.Inhalt?.anzeigen)throw Error('Gemeinsame Inhaltsdarstellung fehlt. Bitte Seite neu laden.');
+  window.Inhalt.anzeigen(el,String(text??''));
+}
+function element(tag,text,css){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(css)el.classList.add(...css.split(/\s+/));return el;}
 let paket,schemas,queue,wahl,aktuell,stopp=false,index=0;const begonnen=[],fertig=new Set(),states=new Map();const timer=new LernTimer();
 const context=()=>({einheit:paket.id,version:paket.version,anteil:Number($('anteil').value)/100,demo:paket.demo});
 async function speichern(event){if(paket.demo)return;await queue.aufnehmen(event,context());queue.flush();}
 const action=fn=>async e=>{const b=e?.currentTarget;if(b)b.disabled=true;try{await fn(e);}catch(err){meldung(err.message);}finally{if(b)b.disabled=false;}};
 function knob(text,fn,css){const b=element('button',text,css);b.type='button';b.addEventListener('click',action(fn));return b;}
-function content(parent,text,tag='div'){const e=element(tag,text,'inhalt');parent.append(e);return e;}
+function content(parent,text,tag='div',code=codeAufgabe(aktuell)){const e=element(tag,undefined,'inhalt');anzeigen(e,text,code);parent.append(e);return e;}
 function neuWaehlen(fill=false){
   wahl=auswahl(paket,Number($('laenge').value),Number($('anteil').value)/100,begonnen,fill);
   $('anteil-wert').textContent=$('anteil').value+' %';$('laenge-wert').textContent=$('laenge').value+' Min.';
@@ -33,12 +40,12 @@ function zeigeAufgabe(){
   content(root,thema?.titel||a.thema,'h2');
   if(thema?.einstieg&&!wahl.aufgaben.slice(0,index).some(x=>x.thema===a.thema)){content(root,thema.einstieg.text);content(root,thema.einstieg.alltag);for(const f of thema.formeln||[])content(root,typeof f==='string'?f:[f.zeichen,f.wann].filter(Boolean).join(' · '));}
   content(root,a.frage);
-  if(a.skizze){const s=paket.skizzen[a.skizze];content(root,'Skizzenbeschreibung: '+s.beschreibung+' · '+s.massstab);}
+  if(a.skizze){const s=paket.skizzen[a.skizze];content(root,'Skizzenbeschreibung: '+s.beschreibung+' · '+s.massstab);if(paket.format==='lerneinheit/3'&&!codeAufgabe(a))content(root,'```grafik\n'+JSON.stringify(s.grafik)+'\n```','div',false);}
   // Historisches SVG wird absichtlich nie geparst oder ins DOM eingesetzt.
   if(a.code)root.append(element('pre',undefined));if(a.code)root.lastChild.textContent=a.code;
   const form=document.createElement('form');root.append(form);let getInput,code=null,laufstatus=null;
-  function textInput(label,area=false){const l=element('label',label),i=document.createElement(area?'textarea':'input');i.maxLength=8000;i.required=true;if(area)i.rows=4;else i.type='text';l.append(i);form.append(l);return i;}
-  function options(values,multi=false){const fs=document.createElement('fieldset');fs.append(element('legend',multi?'Zeilen auswählen':'Deine Antwort'));values.forEach((v,i)=>{const l=element('label',undefined,'auswahloption'),r=document.createElement('input');r.type=multi?'checkbox':'radio';r.name='wahl';r.value=String(i);if(!multi)r.required=true;l.append(r,element('span',v));fs.append(l);});form.append(fs);return()=>Array.from(fs.querySelectorAll('input:checked')).map(i=>Number(i.value));}
+  function textInput(label,area=false){const l=element('label'),i=document.createElement(area?'textarea':'input');content(l,label);i.maxLength=8000;i.required=true;if(area)i.rows=4;else i.type='text';l.append(i);form.append(l);return i;}
+  function options(values,multi=false){const fs=document.createElement('fieldset');fs.append(element('legend',multi?'Zeilen auswählen':'Deine Antwort'));values.forEach((v,i)=>{const l=element('label',undefined,'auswahloption'),r=document.createElement('input');r.type=multi?'checkbox':'radio';r.name='wahl';r.value=String(i);if(!multi)r.required=true;l.append(r);content(l,v);fs.append(l);});form.append(fs);return()=>Array.from(fs.querySelectorAll('input:checked')).map(i=>Number(i.value));}
   if(['mc','formelwahl','wahrfalsch'].includes(a.typ)){const get=options(a.typ==='wahrfalsch'?['Wahr','Falsch']:a.optionen);getInput=()=>a.typ==='wahrfalsch'?get()[0]===0:get()[0];}
   else if(a.typ==='zahl'){const i=textInput('Dein Ergebnis ('+a.antwort.einheit+')');i.inputMode='decimal';getInput=()=>{if(!Number.isFinite(zahl(i.value)))throw Error('Bitte eine endliche Zahl eingeben, zum Beispiel 1,5.');return i.value;};}
   else if(a.typ==='luecken'){const inputs=[];for(const s of a.schritte){content(form,s.text);if(s.luecke){const i=textInput('Zahlenlücke ('+s.luecke.einheit+')');i.inputMode='decimal';inputs.push(i);}}getInput=()=>{const v=inputs.map(i=>i.value);if(v.some(x=>!Number.isFinite(zahl(x))))throw Error('Bitte alle Zahlenlücken ausfüllen.');return v;};}
@@ -53,11 +60,11 @@ function zeigeAufgabe(){
   if(['code_ausgabe','code_fehler'].includes(a.typ)){const fs=element('fieldset');fs.append(element('legend','Dein eigener Code-Test (optional)'));for(const [value,label] of [['laeuft','läuft'],['laeuft_nicht','läuft nicht']]){const b=knob(label,()=>{laufstatus=value;for(const x of fs.querySelectorAll('button'))x.setAttribute('aria-pressed',String(x===b));});b.setAttribute('aria-pressed','false');fs.append(b);}form.append(fs);}
   if(['eclipse','code_ausgabe','code_fehler'].includes(a.typ)){code=textInput('Dein C-Code (optional, Prüfung später)',true);code.required=false;}
   const submit=element('button',a.typ==='beispiel'?'Als gelesen markieren':'Antwort prüfen');submit.type='submit';form.append(submit);
-  const feedback=element('p',undefined,'rueckmeldung');feedback.setAttribute('role','status');feedback.hidden=true;form.append(feedback);
+  const feedback=element('div',undefined,'rueckmeldung');feedback.setAttribute('role','status');feedback.hidden=true;form.append(feedback);
   const help=element('ol',undefined,'hinweise');root.append(help);
-  if(a.hinweise){const hb=element('button','Hinweis 1 von 3','sekundaer');hb.type='button';hb.addEventListener('click',()=>{const t=naechsterHinweis(state,a);if(t!==null)help.append(element('li',t));hb.textContent=state.hinweise<3?`Hinweis ${state.hinweise+1} von 3`:'Alle 3 Hinweise geöffnet';hb.disabled=state.hinweise===3;});root.append(hb);}
+  if(a.hinweise){const hb=element('button','Hinweis 1 von 3','sekundaer');hb.type='button';hb.addEventListener('click',()=>{const t=naechsterHinweis(state,a);if(t!==null)content(help,t,'li');hb.textContent=state.hinweise<3?`Hinweis ${state.hinweise+1} von 3`:'Alle 3 Hinweise geöffnet';hb.disabled=state.hinweise===3;});root.append(hb);}
   const solution=element('div',undefined,'rueckmeldung');solution.hidden=true;
-  const sb=knob('Lösung zeigen',()=>{if(!loesungErlaubt(state))return;anzeigen(solution,loesung(a));solution.hidden=false;state.loesung=true;},'sekundaer');sb.disabled=true;if(a.typ!=='beispiel')root.append(sb,solution);
+  const sb=knob('Lösung zeigen',()=>{if(!loesungErlaubt(state))return;anzeigen(solution,loesung(a),codeAufgabe(a));solution.hidden=false;state.loesung=true;},'sekundaer');sb.disabled=true;if(a.typ!=='beispiel')root.append(sb,solution);
   const self=document.createElement('fieldset');self.hidden=true;self.append(element('legend','Wie sicher fühlst du dich?'));
   for(const wert of ['sitzt','wackelt','noch unklar'])self.append(knob(wert,async()=>{await speichern({art:'selbsteinschaetzung',thema:a.thema,wert});for(const b of self.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b.textContent===wert));}));root.append(self);
   const errorArea=document.createElement('details');errorArea.append(element('summary','Fehler melden'));const comment=element('textarea');comment.rows=2;comment.maxLength=2000;comment.setAttribute('aria-label','Was stimmt an der Aufgabe nicht?');errorArea.append(comment,knob('Fehlerbericht speichern',async()=>{await speichern({art:'fehler_gemeldet',aufgabe:a.id,aufgabe_version:a.version,...(comment.value.trim()?{text:comment.value.trim()}:{})});meldung(paket.demo?'Demo: Fehlerbericht nur ausprobiert.':'Fehlerbericht auf diesem Gerät gesichert.');}));root.append(errorArea);
@@ -68,7 +75,7 @@ function zeigeAufgabe(){
       else if(a.typ==='offen')await speichern({art:'erklaerung',thema:a.thema,text:value});
       else await speichern({art:'antwort',aufgabe:a.id,aufgabe_version:a.version,eingabe:typeof value==='string'?value:JSON.stringify(value),bewertung:result.richtig?'richtig':'falsch',methode:result.methode,hinweise:state.hinweise,aktive_sekunden:Math.floor(state.aktiv),fehlerbild:a.typ==='zahl'&&a.fehlerbild?.[String(zahl(value))]?String(zahl(value)):null,code:code?.value||null,...(laufstatus?{laufstatus}:{})});
       state.versuche++;sb.disabled=false;self.hidden=false;fertig.add(a.id);$('naechste').disabled=false;
-      anzeigen(feedback,a.typ==='beispiel'?'Als gelesen erfasst.':a.typ==='offen'?'Erklärung gesichert. Vergleiche sie mit den Kernpunkten und schätze dich selbst ein.':a.typ==='eclipse'?'Teststatus gesichert. Dein Code wird später geprüft.':result.richtig?'Richtig.':'Noch nicht richtig. Du kannst es erneut versuchen oder einen Hinweis öffnen.');feedback.hidden=false;fortschritt();
+      anzeigen(feedback,a.typ==='beispiel'?'Als gelesen erfasst.':a.typ==='offen'?'Erklärung gesichert. Vergleiche sie mit den Kernpunkten und schätze dich selbst ein.':a.typ==='eclipse'?'Teststatus gesichert. Dein Code wird später geprüft.':result.richtig?'Richtig.':'Noch nicht richtig. Du kannst es erneut versuchen oder einen Hinweis öffnen.'+(a.fehlerbild?.[String(zahl(value))]?'\n'+a.fehlerbild[String(zahl(value))]:''),codeAufgabe(a));feedback.hidden=false;fortschritt();
     }catch(err){meldung(err.message);}finally{submit.disabled=false;}
   });
   fortschritt();if(begonnen.length>1)root.focus();
@@ -92,5 +99,5 @@ function timerZeigen(){timer.tick();const names={bereit:`Block ${timer.block} ·
   if(timer.phase==='fertig'&&!stopp&&paket){stopp=true;speichern({art:'abbruch',nach_aufgabe:aktuell?.id??null,grund:'zeit_um'}).catch(e=>meldung(e.message));abschliessen();}
 }
 let last=performance.now();setInterval(()=>{const now=performance.now();if(aktuell&&!document.hidden&&!stopp&&['bereit','lernen'].includes(timer.phase))states.get(aktuell.id).aktiv+=Math.min(2,(now-last)/1000);last=now;timerZeigen();},1000);
-$('demo-laden').addEventListener('click',action(async()=>paketStart(await json('demo/physik.json'),true)));
-(async()=>{try{schemas=await schemasLaden();queue=await queueStart(schemas);if(new URLSearchParams(location.search).get('demo')==='1'){await paketStart(await json('demo/physik.json'),true);return;}if(!konfiguriert()||!angemeldet()){meldung('Bitte auf der Startseite anmelden. Ohne Anmeldung kannst du die Demo ausprobieren.');$('demo-laden').hidden=false;return;}const p=await datei('einheiten/aktuell.json');if(p)await paketStart(p,false);else{meldung('Noch keine aktuelle Einheit vorbereitet. Die Demo kannst du jetzt ausprobieren.');$('demo-laden').hidden=false;}}catch(e){meldung(e.message);$('demo-laden').hidden=false;}})();
+$('demo-laden').addEventListener('click',action(async()=>paketStart(await json('demo/physik.json?v=2026-11-18-r3'),true)));
+(async()=>{try{schemas=Object.fromEntries(await Promise.all(['lerneinheit','ereignisse'].map(async n=>[n,await json('schema/'+n+'.schema.json?v=2026-11-18-r3')])));queue=await queueStart(schemas);if(new URLSearchParams(location.search).get('demo')==='1'){await paketStart(await json('demo/physik.json?v=2026-11-18-r3'),true);return;}if(!konfiguriert()||!angemeldet()){meldung('Bitte auf der Startseite anmelden. Ohne Anmeldung kannst du die Demo ausprobieren.');$('demo-laden').hidden=false;return;}const p=await datei('einheiten/aktuell.json');if(p)await paketStart(p,false);else{meldung('Noch keine aktuelle Einheit vorbereitet. Die Demo kannst du jetzt ausprobieren.');$('demo-laden').hidden=false;}}catch(e){meldung(e.message);$('demo-laden').hidden=false;}})();

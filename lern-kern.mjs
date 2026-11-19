@@ -1,4 +1,4 @@
-import {innerhalb} from './pruef-kern.mjs';
+import {innerhalb} from './pruef-kern.mjs?v=2026-11-18-r3';
 
 export const minutenMitPausen = minuten => minuten + Math.max(0,Math.ceil(minuten/25)-1)*5;
 export function auswahl(p, minuten=25, anteil=.5, fest=[], auffuellen=false) {

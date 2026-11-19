@@ -1,5 +1,5 @@
-import {$,element,anzeigen,meldung,datei,json,schemasLaden,queueStart,konfiguriert,angemeldet} from './lern-api.mjs';
-import {pruefeBefragung,pruefeAntworten} from './lern-kern.mjs';
+import {$,element,anzeigen,meldung,datei,json,schemasLaden,queueStart,konfiguriert,angemeldet} from './lern-api.mjs?v=2026-11-18-r3';
+import {pruefeBefragung,pruefeAntworten} from './lern-kern.mjs?v=2026-11-18-r3';
 let p,queue,demo=false,draftKey,werte=Object.create(null),sent=false;const getters=new Map();
 function zwischenstand(){for(const [id,get] of getters)werte[id]=get();try{localStorage.setItem(draftKey,JSON.stringify(werte));$('zwischenstand').textContent='Zwischenstand auf diesem Gerät gespeichert.';}catch{$('zwischenstand').textContent='Zwischenstand konnte nicht gespeichert werden. Bitte diese Seite geöffnet lassen.';}}
 function zeichnen(data,isDemo){

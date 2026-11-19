@@ -99,7 +99,7 @@ input, textarea {
 .inhalt-text { max-width: 100%; }
 .inhalt-text p { margin: 0 0 0.6em; }
 .inhalt-text pre { max-width: 100%; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; background: var(--grund); padding: 10px; border-radius: 6px; font-size: 0.85em; }
-.inhalt-formel { display: inline-block; max-width: 100%; overflow-x: auto; vertical-align: middle; overflow-wrap: normal; }
+.inhalt-formel { display: inline; vertical-align: baseline; overflow-wrap: normal; }
 .inhalt-formel-block { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 0.25em 0; }
 .inhalt-formel-rahmen { min-width: 0; max-width: 100%; }
 .inhalt-formel-hinweis { display: block; text-align: right; color: var(--leise); font-size: 13px; margin: 0 0 0.5em; }
@@ -122,17 +122,26 @@ input, textarea {
 .grafik-achse { stroke: var(--leise); stroke-width: 1.5; }
 .grafik-kurve, .grafik-skizze { fill: none; stroke-width: 2.4; stroke: currentColor; }
 .grafik-skizze { color: var(--text); }
+.grafik-pfeil { stroke-width: 3; }
+.grafik-pfeilspitze { fill: currentColor; stroke: none; }
+.grafik-winkel-text { font-size: var(--grafik-schrift, 18px); }
+.grafik-ueberlagert { stroke-dasharray: 8 5; }
 .grafik-punkt { fill: currentColor; }
-.grafik-farbe-0 { color: #2747a8; }
-.grafik-farbe-1 { color: #a82929; }
-.grafik-farbe-2 { color: #137447; }
-.grafik-farbe-3 { color: #8041a5; }
-.grafik-farbe-4 { color: #946200; }
+.grafik-farbe-0, .grafik-farbe-blau { color: #2747a8; }
+.grafik-farbe-1, .grafik-farbe-rot { color: #a82929; }
+.grafik-farbe-2, .grafik-farbe-grün { color: #137447; }
+.grafik-farbe-3, .grafik-farbe-violett { color: #8041a5; }
+.grafik-farbe-4, .grafik-farbe-orange { color: #975000; }
+.grafik-farbe-grau { color: #5d6472; }
+.grafik-texte li::marker { color: var(--text); }
+.grafik-legende li, .grafik-texte li { overflow-wrap: anywhere; }
 .grafik-legende { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 0.85em; padding-left: 20px; }
 .grafik-beschriftung { font-size: 14px; color: var(--leise); }
 .grafik-fehler { color: var(--rot); }
 .antwort:has(.inhalt-grafik) { width: 100%; max-width: 100%; }
 @media (prefers-color-scheme: dark) {
-  .grafik-farbe-0 { color: #9db6ff; } .grafik-farbe-1 { color: #ff9a9a; }
-  .grafik-farbe-2 { color: #7bd5a3; } .grafik-farbe-3 { color: #d4a4f4; } .grafik-farbe-4 { color: #e9c465; }
+  .grafik-farbe-0, .grafik-farbe-blau { color: #9db6ff; } .grafik-farbe-1, .grafik-farbe-rot { color: #ff9a9a; }
+  .grafik-farbe-2, .grafik-farbe-grün { color: #7bd5a3; } .grafik-farbe-3, .grafik-farbe-violett { color: #d4a4f4; }
+  .grafik-farbe-4, .grafik-farbe-orange { color: #ffbd80; } .grafik-farbe-grau { color: #b5bdcd; }
 }
+.version { max-width: 680px; margin: 0 auto; padding: 8px 20px 20px; color: var(--leise); font-size: 12px; }

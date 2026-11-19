@@ -1,4 +1,4 @@
-import {EreignisQueue,insertUnveraenderlich} from './ereignisse.mjs';
+import {EreignisQueue,insertUnveraenderlich} from './ereignisse.mjs?v=2026-11-18-r3';
 const C=window.LERNTOOL||{},KEY='lerntool-sitzung';
 export const $=id=>document.getElementById(id);
 export function anzeigen(el,text){if(window.Inhalt?.anzeigen)window.Inhalt.anzeigen(el,String(text??''));else el.textContent=String(text??'');}

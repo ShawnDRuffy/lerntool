@@ -1,450 +1,896 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "lerneinheit/2",
-  "type": "object",
-  "properties": {
-    "format": {
-      "const": "lerneinheit/2",
-      "description": "Formatkennung.",
-      "examples": [
-        "lerneinheit/2"
-      ]
-    },
-    "id": {
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^[a-z0-9][a-z0-9-]*$",
-      "description": "Eindeutige Einheit; Demo beginnt mit demo-.",
-      "examples": [
-        "demo-2026-11-17-abend"
-      ]
-    },
-    "version": {
-      "type": "integer",
-      "minimum": 1,
-      "description": "Paketversion.",
-      "examples": [
-        1
-      ]
-    },
-    "fuer_tag": {
-      "type": "string",
-      "format": "date",
-      "description": "Gültigkeitstag.",
-      "examples": [
-        "2026-11-17"
-      ]
-    },
-    "erzeugt": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Erzeugungszeit.",
-      "examples": [
-        "2026-11-16T20:00:00+01:00"
-      ]
-    },
-    "zeitzone": {
-      "const": "Europe/Berlin",
-      "description": "Zeitzone.",
-      "examples": [
-        "Europe/Berlin"
-      ]
-    },
-    "demo": {
-      "type": "boolean",
-      "description": "Demo im echten Betrieb gesperrt.",
-      "examples": [
-        true
-      ]
-    },
-    "freigegeben": {
-      "type": "boolean",
-      "description": "Bei demo immer false.",
-      "examples": [
-        false
-      ]
-    },
-    "hinweis": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Herkunft und Einschränkungen.",
-      "examples": [
-        "Demo, kein Lernstand Simons."
-      ]
-    },
-    "kern_minuten": {
-      "type": "integer",
-      "minimum": 25,
-      "maximum": 30,
-      "description": "Standard-Pflichtkern ohne Pausen; Tageswünsche stehen im Tagesplan.",
-      "examples": [
-        25
-      ]
-    },
-    "abend_gesamt_minuten": {
-      "const": 90,
-      "description": "Abendzeit inklusive Pausen laut Simon.",
-      "examples": [
-        90
-      ]
-    },
-    "timer": {
-      "$ref": "#/$defs/timer",
-      "description": "Pauseneinstellungen."
-    },
-    "auswahl": {
+  "title": "lerneinheit/3 mit unverändertem Lesepfad für /2",
+  "anyOf": [
+    {
       "type": "object",
       "properties": {
-        "modus": {
-          "const": "zeitbudget",
-          "description": "Zeitbasierte Auswahl.",
-          "examples": [
-            "zeitbudget"
-          ]
+        "format": {
+          "const": "lerneinheit/3"
         },
-        "standard_wiederholung": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1,
-          "description": "Anteil Wiederholung/Aufholen.",
-          "examples": [
-            0.5
-          ]
-        },
-        "begruendung": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Grund für den Reglerwert.",
-          "examples": [
-            "Noch keine Einstufung, deshalb neutraler Startwert 50 %."
-          ]
-        },
-        "erste_aufgabe": {
+        "id": {
           "type": "string",
           "minLength": 1,
           "pattern": "^[a-z0-9][a-z0-9-]*$",
-          "description": "Leichter Einstieg, höchstens 60 s, ohne Voraussetzungen.",
+          "description": "Eindeutige Einheit; Demo beginnt mit demo-.",
           "examples": [
-            "sch-01"
+            "demo-2026-11-17-abend"
           ]
         },
-        "reihenfolge": {
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Paketversion.",
+          "examples": [
+            1
+          ]
+        },
+        "fuer_tag": {
           "type": "string",
-          "minLength": 1,
-          "description": "Auswahlreihenfolge.",
+          "format": "date",
+          "description": "Gültigkeitstag.",
           "examples": [
-            "erste Aufgabe, Wiederholung, neuer Stoff, Abschluss"
+            "2026-11-17"
           ]
         },
-        "voraussetzungen_beachten": {
-          "const": true,
-          "description": "Voraussetzungen immer beachten.",
+        "erzeugt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Erzeugungszeit.",
+          "examples": [
+            "2026-11-16T20:00:00+01:00"
+          ]
+        },
+        "zeitzone": {
+          "const": "Europe/Berlin",
+          "description": "Zeitzone.",
+          "examples": [
+            "Europe/Berlin"
+          ]
+        },
+        "demo": {
+          "type": "boolean",
+          "description": "Demo im echten Betrieb gesperrt.",
           "examples": [
             true
           ]
         },
-        "begonnene_aufgabe_bleibt": {
-          "const": true,
-          "description": "Offene Eingabe bleibt beim Reglerwechsel.",
+        "freigegeben": {
+          "type": "boolean",
+          "description": "Bei demo immer false.",
           "examples": [
-            true
-          ]
-        },
-        "ueberziehen_bis_sekunden": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 120,
-          "description": "Überschreitung je Teilbudget; bei Nullbudget keine.",
-          "examples": [
-            60
-          ]
-        },
-        "bei_mangel": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Kein stilles Auffüllen mit anderer Art.",
-          "examples": [
-            "Mix zeigen, Einheit wird kürzer."
-          ]
-        },
-        "nur_status": {
-          "const": [
-            "ok"
-          ],
-          "description": "Nur geprüfte Aufgaben.",
-          "examples": [
-            [
-              "ok"
-            ]
-          ]
-        }
-      },
-      "required": [
-        "modus",
-        "standard_wiederholung",
-        "begruendung",
-        "erste_aufgabe",
-        "reihenfolge",
-        "voraussetzungen_beachten",
-        "begonnene_aufgabe_bleibt",
-        "ueberziehen_bis_sekunden",
-        "bei_mangel",
-        "nur_status"
-      ],
-      "additionalProperties": false,
-      "description": "Regeln des späteren Players."
-    },
-    "warum_heute": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "fach": {
-            "enum": [
-              "mathe1",
-              "physik1",
-              "digitech",
-              "statistik",
-              "cprog",
-              "eki"
-            ],
-            "description": "Betroffenes Fach.",
-            "examples": [
-              "physik1"
-            ]
-          },
-          "text": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Begründung; Demo bleibt Demo.",
-            "examples": [
-              "Beispiel: Morgen 09:45 Vorlesung Physik."
-            ]
-          }
-        },
-        "required": [
-          "fach",
-          "text"
-        ],
-        "additionalProperties": false
-      },
-      "minItems": 1,
-      "description": "Gründe für Fachwahl."
-    },
-    "quellen": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/quelle"
-      },
-      "minItems": 1,
-      "description": "Quellenverzeichnis."
-    },
-    "modell": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/modell"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "description": "Optionales gemeinsames Modell."
-    },
-    "skizzen": {
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/$defs/skizze"
-      },
-      "description": "Skizzenschlüssel → statisches SVG."
-    },
-    "themen": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/thema"
-      },
-      "minItems": 1,
-      "description": "Themen dieser Einheit."
-    },
-    "aufgaben": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/aufgabe"
-      },
-      "minItems": 1,
-      "description": "Flacher Vorrat einschließlich freiwilliger Verlängerung."
-    },
-    "abschluss": {
-      "$ref": "#/$defs/abschluss",
-      "description": "In Runde 1 genau ein Objekt; Themenliste erst mit gesonderter Migration."
-    },
-    "vorrat": {
-      "type": "object",
-      "properties": {
-        "sekunden_wiederholung": {
-          "type": "integer",
-          "minimum": 0,
-          "description": "Summe wiederholung und aufholen.",
-          "examples": [
-            435
-          ]
-        },
-        "sekunden_neu": {
-          "type": "integer",
-          "minimum": 0,
-          "description": "Summe neu.",
-          "examples": [
-            1395
-          ]
-        },
-        "sekunden_abschluss": {
-          "type": "integer",
-          "minimum": 0,
-          "description": "Dauer des Abschlusses.",
-          "examples": [
-            120
-          ]
-        },
-        "summe_minuten": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Gesamter Vorrat einschließlich Abschluss, nicht Dauer des Kerns.",
-          "examples": [
-            32.5
-          ]
-        },
-        "summe_punkte": {
-          "anyOf": [
-            {
-              "type": "number",
-              "minimum": 0
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Summe der Aufgabenpunkte; null falls alle unbepunktet.",
-          "examples": [
-            null
+            false
           ]
         },
         "hinweis": {
           "type": "string",
           "minLength": 1,
-          "description": "Optionaler Hinweis zur Vorratsgröße.",
+          "description": "Herkunft und Einschränkungen.",
           "examples": [
-            "Dieses Beispiel hat zu wenig Wiederholung."
+            "Demo, kein Lernstand Simons."
           ]
+        },
+        "kern_minuten": {
+          "type": "integer",
+          "minimum": 25,
+          "maximum": 30,
+          "description": "Standard-Pflichtkern ohne Pausen; Tageswünsche stehen im Tagesplan.",
+          "examples": [
+            25
+          ]
+        },
+        "abend_gesamt_minuten": {
+          "const": 90,
+          "description": "Abendzeit inklusive Pausen laut Simon.",
+          "examples": [
+            90
+          ]
+        },
+        "timer": {
+          "$ref": "#/$defs/timer",
+          "description": "Pauseneinstellungen."
+        },
+        "auswahl": {
+          "type": "object",
+          "properties": {
+            "modus": {
+              "const": "zeitbudget",
+              "description": "Zeitbasierte Auswahl.",
+              "examples": [
+                "zeitbudget"
+              ]
+            },
+            "standard_wiederholung": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Anteil Wiederholung/Aufholen.",
+              "examples": [
+                0.5
+              ]
+            },
+            "begruendung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Grund für den Reglerwert.",
+              "examples": [
+                "Noch keine Einstufung, deshalb neutraler Startwert 50 %."
+              ]
+            },
+            "erste_aufgabe": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Leichter Einstieg, höchstens 60 s, ohne Voraussetzungen.",
+              "examples": [
+                "sch-01"
+              ]
+            },
+            "reihenfolge": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Auswahlreihenfolge.",
+              "examples": [
+                "erste Aufgabe, Wiederholung, neuer Stoff, Abschluss"
+              ]
+            },
+            "voraussetzungen_beachten": {
+              "const": true,
+              "description": "Voraussetzungen immer beachten.",
+              "examples": [
+                true
+              ]
+            },
+            "begonnene_aufgabe_bleibt": {
+              "const": true,
+              "description": "Offene Eingabe bleibt beim Reglerwechsel.",
+              "examples": [
+                true
+              ]
+            },
+            "ueberziehen_bis_sekunden": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 120,
+              "description": "Überschreitung je Teilbudget; bei Nullbudget keine.",
+              "examples": [
+                60
+              ]
+            },
+            "bei_mangel": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Kein stilles Auffüllen mit anderer Art.",
+              "examples": [
+                "Mix zeigen, Einheit wird kürzer."
+              ]
+            },
+            "nur_status": {
+              "const": [
+                "ok"
+              ],
+              "description": "Nur geprüfte Aufgaben.",
+              "examples": [
+                [
+                  "ok"
+                ]
+              ]
+            }
+          },
+          "required": [
+            "modus",
+            "standard_wiederholung",
+            "begruendung",
+            "erste_aufgabe",
+            "reihenfolge",
+            "voraussetzungen_beachten",
+            "begonnene_aufgabe_bleibt",
+            "ueberziehen_bis_sekunden",
+            "bei_mangel",
+            "nur_status"
+          ],
+          "additionalProperties": false,
+          "description": "Regeln des späteren Players."
+        },
+        "warum_heute": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fach": {
+                "enum": [
+                  "mathe1",
+                  "physik1",
+                  "digitech",
+                  "statistik",
+                  "cprog",
+                  "eki"
+                ],
+                "description": "Betroffenes Fach.",
+                "examples": [
+                  "physik1"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Begründung; Demo bleibt Demo.",
+                "examples": [
+                  "Beispiel: Morgen 09:45 Vorlesung Physik."
+                ]
+              }
+            },
+            "required": [
+              "fach",
+              "text"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "description": "Gründe für Fachwahl."
+        },
+        "quellen": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/quelle"
+          },
+          "minItems": 1,
+          "description": "Quellenverzeichnis."
+        },
+        "modell": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/modell"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Optionales gemeinsames Modell."
+        },
+        "skizzen": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/skizze3"
+          },
+          "description": "Skizzenschlüssel → Beschreibung und geprüftes grafik/1-JSON; kein SVG-Text."
+        },
+        "themen": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/thema"
+          },
+          "minItems": 1,
+          "description": "Themen dieser Einheit."
+        },
+        "aufgaben": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/aufgabe"
+          },
+          "minItems": 1,
+          "description": "Flacher Vorrat einschließlich freiwilliger Verlängerung."
+        },
+        "abschluss": {
+          "$ref": "#/$defs/abschluss",
+          "description": "In Runde 1 genau ein Objekt; Themenliste erst mit gesonderter Migration."
+        },
+        "vorrat": {
+          "type": "object",
+          "properties": {
+            "sekunden_wiederholung": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Summe wiederholung und aufholen.",
+              "examples": [
+                435
+              ]
+            },
+            "sekunden_neu": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Summe neu.",
+              "examples": [
+                1395
+              ]
+            },
+            "sekunden_abschluss": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Dauer des Abschlusses.",
+              "examples": [
+                120
+              ]
+            },
+            "summe_minuten": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Gesamter Vorrat einschließlich Abschluss, nicht Dauer des Kerns.",
+              "examples": [
+                32.5
+              ]
+            },
+            "summe_punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Summe der Aufgabenpunkte; null falls alle unbepunktet.",
+              "examples": [
+                null
+              ]
+            },
+            "hinweis": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Optionaler Hinweis zur Vorratsgröße.",
+              "examples": [
+                "Dieses Beispiel hat zu wenig Wiederholung."
+              ]
+            }
+          },
+          "required": [
+            "sekunden_wiederholung",
+            "sekunden_neu",
+            "sekunden_abschluss",
+            "summe_minuten",
+            "summe_punkte"
+          ],
+          "additionalProperties": false,
+          "description": "Nachgerechnete Summen."
+        },
+        "wiederholung_regel": {
+          "type": "object",
+          "properties": {
+            "falsch_nach_tagen": {
+              "const": [
+                1,
+                3,
+                7
+              ],
+              "description": "Wiederholungsabstände nach Fehlern.",
+              "examples": [
+                [
+                  1,
+                  3,
+                  7
+                ]
+              ]
+            },
+            "sicher_nach_tagen": {
+              "const": [
+                14,
+                30
+              ],
+              "description": "Abstände bei sicherem Wissen.",
+              "examples": [
+                [
+                  14,
+                  30
+                ]
+              ]
+            },
+            "zaehlt_nicht": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Ausnahmen.",
+              "examples": [
+                "gemeldete Aufgaben, durchgelesene Beispiele"
+              ]
+            }
+          },
+          "required": [
+            "falsch_nach_tagen",
+            "sicher_nach_tagen",
+            "zaehlt_nicht"
+          ],
+          "additionalProperties": false,
+          "description": "Feste Wiederholungsregeln."
+        },
+        "prompt_mitnehmen": {
+          "type": "object",
+          "properties": {
+            "stufe": {
+              "const": 3,
+              "description": "UI erst in Stufe 3.",
+              "examples": [
+                3
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Promptvorlage mit Platzhaltern.",
+              "examples": [
+                "Ich lerne {thema}. Mein Stand: {stand}."
+              ]
+            }
+          },
+          "required": [
+            "stufe",
+            "text"
+          ],
+          "additionalProperties": false,
+          "description": "Vorlage für spätere Stufe."
         }
       },
       "required": [
-        "sekunden_wiederholung",
-        "sekunden_neu",
-        "sekunden_abschluss",
-        "summe_minuten",
-        "summe_punkte"
+        "format",
+        "id",
+        "version",
+        "fuer_tag",
+        "erzeugt",
+        "zeitzone",
+        "demo",
+        "freigegeben",
+        "kern_minuten",
+        "abend_gesamt_minuten",
+        "timer",
+        "auswahl",
+        "warum_heute",
+        "quellen",
+        "skizzen",
+        "themen",
+        "aufgaben",
+        "abschluss",
+        "vorrat",
+        "wiederholung_regel",
+        "prompt_mitnehmen"
       ],
-      "additionalProperties": false,
-      "description": "Nachgerechnete Summen."
+      "additionalProperties": false
     },
-    "wiederholung_regel": {
+    {
       "type": "object",
       "properties": {
-        "falsch_nach_tagen": {
-          "const": [
-            1,
-            3,
-            7
-          ],
-          "description": "Wiederholungsabstände nach Fehlern.",
+        "format": {
+          "const": "lerneinheit/2",
+          "description": "Formatkennung.",
           "examples": [
-            [
-              1,
-              3,
-              7
-            ]
+            "lerneinheit/2"
           ]
         },
-        "sicher_nach_tagen": {
-          "const": [
-            14,
-            30
-          ],
-          "description": "Abstände bei sicherem Wissen.",
-          "examples": [
-            [
-              14,
-              30
-            ]
-          ]
-        },
-        "zaehlt_nicht": {
+        "id": {
           "type": "string",
           "minLength": 1,
-          "description": "Ausnahmen.",
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Eindeutige Einheit; Demo beginnt mit demo-.",
           "examples": [
-            "gemeldete Aufgaben, durchgelesene Beispiele"
+            "demo-2026-11-17-abend"
           ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Paketversion.",
+          "examples": [
+            1
+          ]
+        },
+        "fuer_tag": {
+          "type": "string",
+          "format": "date",
+          "description": "Gültigkeitstag.",
+          "examples": [
+            "2026-11-17"
+          ]
+        },
+        "erzeugt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Erzeugungszeit.",
+          "examples": [
+            "2026-11-16T20:00:00+01:00"
+          ]
+        },
+        "zeitzone": {
+          "const": "Europe/Berlin",
+          "description": "Zeitzone.",
+          "examples": [
+            "Europe/Berlin"
+          ]
+        },
+        "demo": {
+          "type": "boolean",
+          "description": "Demo im echten Betrieb gesperrt.",
+          "examples": [
+            true
+          ]
+        },
+        "freigegeben": {
+          "type": "boolean",
+          "description": "Bei demo immer false.",
+          "examples": [
+            false
+          ]
+        },
+        "hinweis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Herkunft und Einschränkungen.",
+          "examples": [
+            "Demo, kein Lernstand Simons."
+          ]
+        },
+        "kern_minuten": {
+          "type": "integer",
+          "minimum": 25,
+          "maximum": 30,
+          "description": "Standard-Pflichtkern ohne Pausen; Tageswünsche stehen im Tagesplan.",
+          "examples": [
+            25
+          ]
+        },
+        "abend_gesamt_minuten": {
+          "const": 90,
+          "description": "Abendzeit inklusive Pausen laut Simon.",
+          "examples": [
+            90
+          ]
+        },
+        "timer": {
+          "$ref": "#/$defs/timer",
+          "description": "Pauseneinstellungen."
+        },
+        "auswahl": {
+          "type": "object",
+          "properties": {
+            "modus": {
+              "const": "zeitbudget",
+              "description": "Zeitbasierte Auswahl.",
+              "examples": [
+                "zeitbudget"
+              ]
+            },
+            "standard_wiederholung": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Anteil Wiederholung/Aufholen.",
+              "examples": [
+                0.5
+              ]
+            },
+            "begruendung": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Grund für den Reglerwert.",
+              "examples": [
+                "Noch keine Einstufung, deshalb neutraler Startwert 50 %."
+              ]
+            },
+            "erste_aufgabe": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-z0-9][a-z0-9-]*$",
+              "description": "Leichter Einstieg, höchstens 60 s, ohne Voraussetzungen.",
+              "examples": [
+                "sch-01"
+              ]
+            },
+            "reihenfolge": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Auswahlreihenfolge.",
+              "examples": [
+                "erste Aufgabe, Wiederholung, neuer Stoff, Abschluss"
+              ]
+            },
+            "voraussetzungen_beachten": {
+              "const": true,
+              "description": "Voraussetzungen immer beachten.",
+              "examples": [
+                true
+              ]
+            },
+            "begonnene_aufgabe_bleibt": {
+              "const": true,
+              "description": "Offene Eingabe bleibt beim Reglerwechsel.",
+              "examples": [
+                true
+              ]
+            },
+            "ueberziehen_bis_sekunden": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 120,
+              "description": "Überschreitung je Teilbudget; bei Nullbudget keine.",
+              "examples": [
+                60
+              ]
+            },
+            "bei_mangel": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Kein stilles Auffüllen mit anderer Art.",
+              "examples": [
+                "Mix zeigen, Einheit wird kürzer."
+              ]
+            },
+            "nur_status": {
+              "const": [
+                "ok"
+              ],
+              "description": "Nur geprüfte Aufgaben.",
+              "examples": [
+                [
+                  "ok"
+                ]
+              ]
+            }
+          },
+          "required": [
+            "modus",
+            "standard_wiederholung",
+            "begruendung",
+            "erste_aufgabe",
+            "reihenfolge",
+            "voraussetzungen_beachten",
+            "begonnene_aufgabe_bleibt",
+            "ueberziehen_bis_sekunden",
+            "bei_mangel",
+            "nur_status"
+          ],
+          "additionalProperties": false,
+          "description": "Regeln des späteren Players."
+        },
+        "warum_heute": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fach": {
+                "enum": [
+                  "mathe1",
+                  "physik1",
+                  "digitech",
+                  "statistik",
+                  "cprog",
+                  "eki"
+                ],
+                "description": "Betroffenes Fach.",
+                "examples": [
+                  "physik1"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Begründung; Demo bleibt Demo.",
+                "examples": [
+                  "Beispiel: Morgen 09:45 Vorlesung Physik."
+                ]
+              }
+            },
+            "required": [
+              "fach",
+              "text"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "description": "Gründe für Fachwahl."
+        },
+        "quellen": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/quelle"
+          },
+          "minItems": 1,
+          "description": "Quellenverzeichnis."
+        },
+        "modell": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/modell"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Optionales gemeinsames Modell."
+        },
+        "skizzen": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/skizze"
+          },
+          "description": "Skizzenschlüssel → statisches SVG."
+        },
+        "themen": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/thema"
+          },
+          "minItems": 1,
+          "description": "Themen dieser Einheit."
+        },
+        "aufgaben": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/aufgabe"
+          },
+          "minItems": 1,
+          "description": "Flacher Vorrat einschließlich freiwilliger Verlängerung."
+        },
+        "abschluss": {
+          "$ref": "#/$defs/abschluss",
+          "description": "In Runde 1 genau ein Objekt; Themenliste erst mit gesonderter Migration."
+        },
+        "vorrat": {
+          "type": "object",
+          "properties": {
+            "sekunden_wiederholung": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Summe wiederholung und aufholen.",
+              "examples": [
+                435
+              ]
+            },
+            "sekunden_neu": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Summe neu.",
+              "examples": [
+                1395
+              ]
+            },
+            "sekunden_abschluss": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Dauer des Abschlusses.",
+              "examples": [
+                120
+              ]
+            },
+            "summe_minuten": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Gesamter Vorrat einschließlich Abschluss, nicht Dauer des Kerns.",
+              "examples": [
+                32.5
+              ]
+            },
+            "summe_punkte": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Summe der Aufgabenpunkte; null falls alle unbepunktet.",
+              "examples": [
+                null
+              ]
+            },
+            "hinweis": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Optionaler Hinweis zur Vorratsgröße.",
+              "examples": [
+                "Dieses Beispiel hat zu wenig Wiederholung."
+              ]
+            }
+          },
+          "required": [
+            "sekunden_wiederholung",
+            "sekunden_neu",
+            "sekunden_abschluss",
+            "summe_minuten",
+            "summe_punkte"
+          ],
+          "additionalProperties": false,
+          "description": "Nachgerechnete Summen."
+        },
+        "wiederholung_regel": {
+          "type": "object",
+          "properties": {
+            "falsch_nach_tagen": {
+              "const": [
+                1,
+                3,
+                7
+              ],
+              "description": "Wiederholungsabstände nach Fehlern.",
+              "examples": [
+                [
+                  1,
+                  3,
+                  7
+                ]
+              ]
+            },
+            "sicher_nach_tagen": {
+              "const": [
+                14,
+                30
+              ],
+              "description": "Abstände bei sicherem Wissen.",
+              "examples": [
+                [
+                  14,
+                  30
+                ]
+              ]
+            },
+            "zaehlt_nicht": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Ausnahmen.",
+              "examples": [
+                "gemeldete Aufgaben, durchgelesene Beispiele"
+              ]
+            }
+          },
+          "required": [
+            "falsch_nach_tagen",
+            "sicher_nach_tagen",
+            "zaehlt_nicht"
+          ],
+          "additionalProperties": false,
+          "description": "Feste Wiederholungsregeln."
+        },
+        "prompt_mitnehmen": {
+          "type": "object",
+          "properties": {
+            "stufe": {
+              "const": 3,
+              "description": "UI erst in Stufe 3.",
+              "examples": [
+                3
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Promptvorlage mit Platzhaltern.",
+              "examples": [
+                "Ich lerne {thema}. Mein Stand: {stand}."
+              ]
+            }
+          },
+          "required": [
+            "stufe",
+            "text"
+          ],
+          "additionalProperties": false,
+          "description": "Vorlage für spätere Stufe."
         }
       },
       "required": [
-        "falsch_nach_tagen",
-        "sicher_nach_tagen",
-        "zaehlt_nicht"
+        "format",
+        "id",
+        "version",
+        "fuer_tag",
+        "erzeugt",
+        "zeitzone",
+        "demo",
+        "freigegeben",
+        "kern_minuten",
+        "abend_gesamt_minuten",
+        "timer",
+        "auswahl",
+        "warum_heute",
+        "quellen",
+        "skizzen",
+        "themen",
+        "aufgaben",
+        "abschluss",
+        "vorrat",
+        "wiederholung_regel",
+        "prompt_mitnehmen"
       ],
-      "additionalProperties": false,
-      "description": "Feste Wiederholungsregeln."
-    },
-    "prompt_mitnehmen": {
-      "type": "object",
-      "properties": {
-        "stufe": {
-          "const": 3,
-          "description": "UI erst in Stufe 3.",
-          "examples": [
-            3
-          ]
-        },
-        "text": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Promptvorlage mit Platzhaltern.",
-          "examples": [
-            "Ich lerne {thema}. Mein Stand: {stand}."
-          ]
-        }
-      },
-      "required": [
-        "stufe",
-        "text"
-      ],
-      "additionalProperties": false,
-      "description": "Vorlage für spätere Stufe."
+      "additionalProperties": false
     }
-  },
-  "required": [
-    "format",
-    "id",
-    "version",
-    "fuer_tag",
-    "erzeugt",
-    "zeitzone",
-    "demo",
-    "freigegeben",
-    "kern_minuten",
-    "abend_gesamt_minuten",
-    "timer",
-    "auswahl",
-    "warum_heute",
-    "quellen",
-    "skizzen",
-    "themen",
-    "aufgaben",
-    "abschluss",
-    "vorrat",
-    "wiederholung_regel",
-    "prompt_mitnehmen"
   ],
-  "additionalProperties": false,
   "$defs": {
     "abschluss": {
       "type": "object",
@@ -3063,6 +3509,47 @@
         "einheit",
         "tol_abs",
         "tol_rel"
+      ],
+      "additionalProperties": false
+    },
+    "skizze3": {
+      "type": "object",
+      "properties": {
+        "aus_modell": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Verweis auf modell.id.",
+          "examples": [
+            "federwagen"
+          ]
+        },
+        "massstab": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Lesbare Maßstabsangabe.",
+          "examples": [
+            "48 px = 4 cm"
+          ]
+        },
+        "beschreibung": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Barrierefreie Beschreibung.",
+          "examples": [
+            "Wand, Feder, Wagen m bei +x̂."
+          ]
+        },
+        "grafik": {
+          "type": "object",
+          "description": "grafik/1-JSON. Vollständige Form und Grenzen prüft derselbe Prüfer wie grafik.js."
+        }
+      },
+      "required": [
+        "aus_modell",
+        "massstab",
+        "beschreibung",
+        "grafik"
       ],
       "additionalProperties": false
     }
